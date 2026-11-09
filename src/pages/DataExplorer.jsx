@@ -140,8 +140,7 @@ export default function DataExplorer() {
         {data.length > 0 && (
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-[#6c7c7d] font-mono mr-2">{data.length} records in database</span>
-            {/* export buttons */}
-            false && <a
+            <a
               href={api.exportCsv(selectedId)}
               download
               className="bg-white text-[#41604e] border border-[#d4ded1] rounded px-3 py-1.5 text-xs no-underline flex items-center gap-1.5 hover:bg-[#f3f5ed] font-medium shadow-2xs"
