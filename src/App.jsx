@@ -1,12 +1,14 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Flame, Search, BarChart3, Menu, X } from 'lucide-react';
+import { Flame, Search, Database, BarChart3, Menu, X } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import Explore from './pages/Explore';
+import DataExplorer from './pages/DataExplorer';
 
 const navItems = [
   { to: '/', icon: BarChart3, label: 'Dashboard' },
   { to: '/explore', icon: Search, label: 'Explore' },
+  { to: '/data', icon: Database, label: 'Data Explorer' },
 ];
 
 export default function App() {
@@ -94,7 +96,7 @@ export default function App() {
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#749e78]" />
             Dashboard
-            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.1</span>
+            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.2</span>
           </div>
         </header>
         
@@ -102,6 +104,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/data" element={<DataExplorer />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
