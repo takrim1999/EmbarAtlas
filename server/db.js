@@ -168,7 +168,6 @@ export function getDb() {
         isFallback = true;
       }
     } else {
-      // In-memory fallback
       console.warn('⚡ Using zero-dependency in-memory dataset adapter (better-sqlite3 not available)');
       db = createFallbackDb();
       isFallback = true;
