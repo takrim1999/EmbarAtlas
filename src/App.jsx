@@ -1,20 +1,12 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Flame, Search, BarChart3, Menu, X } from 'lucide-react';
+import Dashboard from './pages/Dashboard';
 
 const navItems = [
   { to: '/', icon: BarChart3, label: 'Dashboard' },
   { to: '/explore', icon: Search, label: 'Explore' },
 ];
-
-function PlaceholderDashboard() {
-  return (
-    <div className="p-8 text-center bg-white rounded-lg border border-[#dce2db]">
-      <h2 className="text-xl font-bold mb-2">Dashboard Initializing</h2>
-      <p className="text-sm text-[#6c7c7d]">Loading NASA PSI microgravity combustion metrics...</p>
-    </div>
-  );
-}
 
 function PlaceholderExplore() {
   return (
@@ -116,7 +108,7 @@ export default function App() {
         
         <main className="flex-1 max-w-[1500px] w-full mx-auto p-4 lg:p-8">
           <Routes>
-            <Route path="/" element={<PlaceholderDashboard />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/explore" element={<PlaceholderExplore />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
