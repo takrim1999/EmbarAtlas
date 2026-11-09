@@ -27,3 +27,8 @@ export const api = {
 
   getInvestigation: (id) => fetchJson(`/investigations/${id}`),
 };
+
+  getDataStats: () => fetchJson('/data/stats'),
+  getTestData: (invId) => fetchJson(`/data/tests/${invId}`),
+  exportCsv: (invId) => `${API_BASE}/data/export/${invId}`,
+  exportJson: (invId) => `${API_BASE}/data/export-json/${invId}`,

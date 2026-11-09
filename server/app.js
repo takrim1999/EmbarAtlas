@@ -4,6 +4,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import investigationsRouter from './routes/investigations.js';
+import dataRouter from './routes/data.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // API routes
 app.use('/api/investigations', investigationsRouter);
+app.use('/api/data', dataRouter);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
