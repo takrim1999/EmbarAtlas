@@ -2,20 +2,12 @@ import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Flame, Search, BarChart3, Menu, X } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
+import Explore from './pages/Explore';
 
 const navItems = [
   { to: '/', icon: BarChart3, label: 'Dashboard' },
   { to: '/explore', icon: Search, label: 'Explore' },
 ];
-
-function PlaceholderExplore() {
-  return (
-    <div className="p-8 text-center bg-white rounded-lg border border-[#dce2db]">
-      <h2 className="text-xl font-bold mb-2">Investigation Explorer</h2>
-      <p className="text-sm text-[#6c7c7d]">Browse NASA microgravity fire safety studies...</p>
-    </div>
-  );
-}
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -102,14 +94,14 @@ export default function App() {
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#749e78]" />
             Dashboard
-            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.0</span>
+            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.1</span>
           </div>
         </header>
         
         <main className="flex-1 max-w-[1500px] w-full mx-auto p-4 lg:p-8">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/explore" element={<PlaceholderExplore />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
