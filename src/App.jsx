@@ -1,10 +1,11 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Flame, Search, GitCompareArrows, Database, BookOpen, BarChart3, Menu, X } from 'lucide-react';
+import { Flame, Search, GitCompareArrows, Database, MessageCircle, BookOpen, BarChart3, Menu, X } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import Explore from './pages/Explore';
 import Compare from './pages/Compare';
 import DataExplorer from './pages/DataExplorer';
+import Chat from './pages/Chat';
 import Method from './pages/Method';
 
 const navItems = [
@@ -12,6 +13,7 @@ const navItems = [
   { to: '/explore', icon: Search, label: 'Explore' },
   { to: '/compare', icon: GitCompareArrows, label: 'Compare' },
   { to: '/data', icon: Database, label: 'Data Explorer' },
+  { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
   { to: '/method', icon: BookOpen, label: 'Sources & Method' },
 ];
 
@@ -99,8 +101,8 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#749e78]" />
-            Dashboard
-            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.5</span>
+            AI-Powered Dashboard
+            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.8</span>
           </div>
         </header>
         
@@ -110,6 +112,7 @@ export default function App() {
             <Route path="/explore" element={<Explore />} />
             <Route path="/compare" element={<Compare />} />
             <Route path="/data" element={<DataExplorer />} />
+            <Route path="/chat" element={<Chat />} />
             <Route path="/method" element={<Method />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
