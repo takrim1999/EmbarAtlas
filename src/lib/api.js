@@ -1,12 +1,10 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const API_BASE = '/api';
 
-async function fetchJson(endpoint, options = {}) {
-  const res = await fetch(`${API_BASE}${endpoint}`, {
+async function request(path, options = {}) {
+  const url = `${API_BASE}${path}`;
+  const res = await fetch(url, {
+    headers: { 'Content-Type': 'application/json', ...options.headers },
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
   });
   if (!res.ok) {
     const error = await res.json().catch(() => ({ error: 'Request failed' }));
@@ -16,25 +14,38 @@ async function fetchJson(endpoint, options = {}) {
 }
 
 export const api = {
+  // Investigations
   getInvestigations: (params = {}) => {
-    const query = new URLSearchParams();
-    Object.entries(params).forEach(([k, v]) => {
-      if (v !== undefined && v !== null && v !== '') query.append(k, v);
-    });
-    const qs = query.toString();
-    return fetchJson(`/investigations${qs ? '?' + qs : ''}`);
+    const query = new URLSearchParams(params).toString();
+    return request(`/investigations${query ? `?${query}` : ''}`);
   },
-
-  getInvestigation: (id) => fetchJson(`/investigations/${id}`),
-};
-
-  getDataStats: () => fetchJson('/data/stats'),
-  getTestData: (invId) => fetchJson(`/data/tests/${invId}`),
-  exportCsv: (invId) => `${API_BASE}/data/export/${invId}`,
-  exportJson: (invId) => `${API_BASE}/data/export-json/${invId}`,
-
-  askAI: (message, sessionId = 'default') =>
-    fetchJson('/ai/chat', {
+  getInvestigation: (id) => request(`/investigations/${id}`),
+  getStats: () => request('/investigations/stats'),
+  compareInvestigations: (ids) => request(`/investigations/compare?ids=${ids.join(',')}`),
+  
+  // AI
+  chat: (message, sessionId, investigationIds) =>
+    request('/ai/chat', {
       method: 'POST',
-      body: JSON.stringify({ message, sessionId }),
+      body: JSON.stringify({ message, sessionId, investigationIds }),
     }),
+  summarize: (investigationIds) =>
+    request('/ai/summarize', {
+      method: 'POST',
+      body: JSON.stringify({ investigationIds }),
+    }),
+  getInsights: (focus) =>
+    request('/ai/insights', {
+      method: 'POST',
+      body: JSON.stringify({ focus }),
+    }),
+  
+  // Data
+  exportCsv: (investigationId) => `${API_BASE}/data/export/${investigationId}`,
+  exportJson: (investigationId) => `${API_BASE}/data/export/${investigationId}/json`,
+  importCsv: (investigationId, csvText) =>
+    request('/data/import', {
+      method: 'POST',
+      body: JSON.stringify({ investigationId, csvText }),
+    }),
+};
