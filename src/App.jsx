@@ -1,10 +1,11 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Flame, Search, GitCompareArrows, Database, MessageCircle, BookOpen, BarChart3, Menu, X } from 'lucide-react';
+import { Flame, Search, GitCompareArrows, Database, Brain, MessageCircle, BookOpen, BarChart3, Menu, X } from 'lucide-react';
 import Dashboard from './pages/Dashboard';
 import Explore from './pages/Explore';
 import Compare from './pages/Compare';
 import DataExplorer from './pages/DataExplorer';
+import Insights from './pages/Insights';
 import Chat from './pages/Chat';
 import Method from './pages/Method';
 
@@ -13,6 +14,7 @@ const navItems = [
   { to: '/explore', icon: Search, label: 'Explore' },
   { to: '/compare', icon: GitCompareArrows, label: 'Compare' },
   { to: '/data', icon: Database, label: 'Data Explorer' },
+  { to: '/insights', icon: Brain, label: 'AI Insights' },
   { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
   { to: '/method', icon: BookOpen, label: 'Sources & Method' },
 ];
@@ -22,6 +24,7 @@ export default function App() {
   
   return (
     <div className="flex min-h-screen bg-[#f5f6f2] text-[#183235]">
+      {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black/40 z-40 lg:hidden"
@@ -29,6 +32,7 @@ export default function App() {
         />
       )}
       
+      {/* Sidebar */}
       <aside className={`
         fixed lg:sticky top-0 left-0 h-screen w-[230px] bg-[#14292d] text-white
         flex flex-col z-50 transition-transform lg:translate-x-0 shrink-0
@@ -84,7 +88,9 @@ export default function App() {
         </div>
       </aside>
       
+      {/* Main layout */}
       <div className="flex-1 min-w-0 flex flex-col min-h-screen">
+        {/* Top bar */}
         <header className="h-[60px] border-b border-[#dce2db] px-4 lg:px-8 flex items-center justify-between bg-[#fafbf8] sticky top-0 z-30">
           <div className="flex items-center gap-3">
             <button
@@ -101,17 +107,19 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#749e78]" />
-            AI-Powered Dashboard
-            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v1.8</span>
+            SI-Powered Dashboard
+            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v2.0</span>
           </div>
         </header>
         
+        {/* Page content */}
         <main className="flex-1 max-w-[1500px] w-full mx-auto p-4 lg:p-8">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/compare" element={<Compare />} />
             <Route path="/data" element={<DataExplorer />} />
+            <Route path="/insights" element={<Insights />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/method" element={<Method />} />
             <Route path="*" element={<Navigate to="/" replace />} />
