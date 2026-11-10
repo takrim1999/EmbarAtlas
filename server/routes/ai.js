@@ -25,8 +25,8 @@ CRITICAL RULES:
 You are helping users navigate a complex body of research to support safer human space exploration.`;
 
 // Multi-tier model cascades
-const CHAT_MODELS = ['gemini-3.5-flash-lite'];
-const REASONING_MODELS = ['gemini-3.5-flash-lite'];
+const CHAT_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite-preview', 'gemma-4-31b-it'];
+const REASONING_MODELS = ['gemma-4-31b-it', 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite-preview'];
 
 function getGenAI() {
   const apiKey = process.env.GEMINI_API_KEY || process.env.AI_STUDIO_API;
