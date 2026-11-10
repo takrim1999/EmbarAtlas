@@ -62,7 +62,7 @@ export default function Compare() {
       const data = await api.summarize(selectedIds);
       setAiSummary(data.summary || 'No summary returned.');
     } catch (err) {
-      setAiSummary('Failed to generate AI comparison. Check GEMINI_API_KEY configuration.');
+      setAiSummary('Failed to generate SI comparison. Check GEMINI_API_KEY configuration.');
     } finally {
       setLoadingAi(false);
     }
@@ -232,12 +232,12 @@ export default function Compare() {
             <strong>Evidence Boundary Note:</strong> This compares investigation metadata and objectives. Microgravity results (0g) cannot be directly substituted for Moon (1/6g) or Mars (3/8g) gravitational acceleration without validated partial-gravity testing (e.g. future LUCI, FM2).
           </div>
 
-          {/* AI Comparison Analysis */}
+          {/* SI Comparison Analysis */}
           <div className="bg-white border border-[#dce2db] rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
               <div>
                 <p className="text-[9px] tracking-[1.5px] text-[#6c7c7d] font-bold uppercase mb-0.5">SUPER INTELLIGENCE (SI) ENGINE</p>
-                <h2 className="text-lg font-semibold text-[#183235]">AI Synthesis & Contrast Analysis</h2>
+                <h2 className="text-lg font-semibold text-[#183235]">SI Synthesis & Contrast Analysis</h2>
               </div>
               <button
                 type="button"
@@ -246,7 +246,7 @@ export default function Compare() {
                 className="bg-[#126959] text-white rounded px-4 py-2 text-xs font-medium hover:bg-[#126959]/90 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
               >
                 <Sparkles size={14} />
-                {loadingAi ? 'Synthesizing with Gemini…' : 'Generate AI Synthesis'}
+                {loadingAi ? 'Synthesizing with SI Cascade…' : 'Generate SI Synthesis'}
               </button>
             </div>
             
@@ -257,7 +257,7 @@ export default function Compare() {
               />
             ) : (
               <p className="text-xs text-[#6c7c7d] py-3">
-                Click <strong>"Generate AI Synthesis"</strong> to instruct Gemini to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
+                Click <strong>"Generate SI Synthesis"</strong> to instruct the Super Intelligence engine to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
               </p>
             )}
           </div>

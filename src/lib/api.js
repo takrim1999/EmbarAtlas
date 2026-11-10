@@ -23,7 +23,7 @@ export const api = {
   getStats: () => request('/investigations/stats'),
   compareInvestigations: (ids) => request(`/investigations/compare?ids=${ids.join(',')}`),
   
-  // AI
+  // Super Intelligence (SI) Engine
   chat: (message, sessionId, investigationIds) =>
     request('/ai/chat', {
       method: 'POST',

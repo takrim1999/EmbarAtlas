@@ -18,7 +18,7 @@ export default function Method() {
       <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-1 uppercase">TRANSPARENCY BY DESIGN</p>
       <h1 className="text-3xl font-medium tracking-tight mb-2">Evidence You Can Inspect</h1>
       <p className="text-xs text-[#6c7c7d] leading-relaxed max-w-xl mb-8">
-        Every catalog entry traces to a NASA Physical Science Informatics archive record. Every AI interpretation has explicit scientific boundaries.
+        Every catalog entry traces to a NASA Physical Science Informatics archive record. Every Super Intelligence (SI) interpretation has explicit scientific boundaries.
       </p>
 
       {/* 4 Tenets Grid */}
@@ -40,7 +40,7 @@ export default function Method() {
             step: '03 / INTERPRETATION',
             title: 'Grounded Super Intelligence (SI)',
             icon: ShieldCheck,
-            text: 'The AI assistant and synthesis engine (powered by Google Gemini 2.0 Flash) are bound by strict grounding rules. Answers must cite specific investigation IDs (e.g. [PSI-25], [PSI-98]) and explicitly distinguish hypotheses and objectives from verified experimental findings.',
+            text: 'The Super Intelligence (SI) assistant and multi-model synthesis engine (powered by Gemma 4 31B and Gemini Flash Lite) are bound by strict grounding rules. Answers must cite specific investigation IDs (e.g. [PSI-25], [PSI-98]) and explicitly distinguish hypotheses and objectives from verified experimental findings.',
           },
           {
             step: '04 / EVIDENCE BOUNDARY',

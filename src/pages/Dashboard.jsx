@@ -64,7 +64,7 @@ export default function Dashboard() {
             <em className="not-italic text-[#b5d6b7]">Understand the fire.</em>
           </h1>
           <p className="text-xs text-[#b1c6bf] leading-relaxed max-w-md">
-            Explore NASA's microgravity combustion research with AI-powered analysis.
+            Explore NASA's microgravity combustion research with Super Intelligence (SI) powered analysis.
             Compare what was studied, why it matters, and what's still unknown.
           </p>
         </div>
@@ -104,8 +104,8 @@ export default function Dashboard() {
         {[
           { to: '/explore', icon: Search, label: 'Explore Evidence', desc: 'Search and filter investigations', color: 'bg-[#126959]' },
           { to: '/compare', icon: GitCompareArrows, label: 'Compare Studies', desc: 'Side-by-side analysis', color: 'bg-[#4e768c]' },
-          { to: '/insights', icon: Brain, label: 'AI Insights', desc: 'AI-generated safety analysis', color: 'bg-[#9d7440]' },
-          { to: '/chat', icon: Flame, label: 'Ask AI', desc: 'Chat with research assistant', color: 'bg-[#df8656]' },
+          { to: '/insights', icon: Brain, label: 'SI Insights', desc: 'SI-generated safety analysis', color: 'bg-[#9d7440]' },
+          { to: '/chat', icon: Flame, label: 'Ask SI', desc: 'Chat with research assistant', color: 'bg-[#df8656]' },
         ].map(({ to, icon: Icon, label, desc, color }) => (
           <Link
             key={to}

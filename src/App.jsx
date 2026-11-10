@@ -14,8 +14,8 @@ const navItems = [
   { to: '/explore', icon: Search, label: 'Explore' },
   { to: '/compare', icon: GitCompareArrows, label: 'Compare' },
   { to: '/data', icon: Database, label: 'Data Explorer' },
-  { to: '/insights', icon: Brain, label: 'AI Insights' },
-  { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
+  { to: '/insights', icon: Brain, label: 'SI Insights' },
+  { to: '/chat', icon: MessageCircle, label: 'SI Assistant' },
   { to: '/method', icon: BookOpen, label: 'Sources & Method' },
 ];
 

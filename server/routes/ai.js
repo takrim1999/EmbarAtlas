@@ -4,7 +4,7 @@ import { getDb } from '../db.js';
 
 const router = Router();
 
-const SYSTEM_PROMPT = `You are Ember Atlas AI, a specialized research analyst for NASA microgravity combustion and fire safety research. Your role is to help aerospace researchers, engineers, and students understand NASA's fire safety experiments conducted in microgravity.
+const SYSTEM_PROMPT = `You are Ember Atlas Super Intelligence (SI), a specialized research analyst for NASA microgravity combustion and fire safety research. Your role is to help aerospace researchers, engineers, and students understand NASA's fire safety experiments conducted in microgravity.
 
 CRITICAL RULES:
 1. ONLY answer based on the provided investigation data and evidence. Never invent experimental results, conditions, or findings.
@@ -42,7 +42,7 @@ async function executeModelCascade({ models, systemInstruction, prompt, chatHist
 
   for (const modelName of models) {
     try {
-      console.log(`🤖 Attempting AI execution with: ${modelName}`);
+      console.log(`🤖 Attempting Super Intelligence (SI) execution with: ${modelName}`);
       const model = genAI.getGenerativeModel({
         model: modelName,
         systemInstruction,
@@ -62,7 +62,7 @@ async function executeModelCascade({ models, systemInstruction, prompt, chatHist
     }
   }
 
-  throw lastError || new Error('All AI models in cascade failed');
+  throw lastError || new Error('All Super Intelligence (SI) models in cascade failed');
 }
 
 function getInvestigationContext(investigationIds) {
@@ -163,14 +163,14 @@ router.post('/chat', async (req, res) => {
       modelUsed,
     });
   } catch (error) {
-    console.error('AI chat error:', error);
+    console.error('Super Intelligence (SI) chat error:', error);
     if (error.message?.includes('API_KEY')) {
       return res.status(500).json({ 
-        error: 'AI service not configured. Please set GEMINI_API_KEY in .env file.',
-        response: 'I\'m unable to process your question right now because the AI service is not configured. Please ensure a valid Gemini API key is set in the server configuration.'
+        error: 'SI service not configured. Please set GEMINI_API_KEY in .env file.',
+        response: 'I\'m unable to process your question right now because the SI service is not configured. Please ensure a valid Gemini API key is set in the server configuration.'
       });
     }
-    res.status(500).json({ error: 'AI service error', details: error.message });
+    res.status(500).json({ error: 'SI service error', details: error.message });
   }
 });
 
@@ -201,7 +201,7 @@ router.post('/summarize', async (req, res) => {
       modelUsed,
     });
   } catch (error) {
-    console.error('AI summarize error:', error);
+    console.error('Super Intelligence (SI) summarize error:', error);
     res.status(500).json({ error: 'Failed to generate summary: ' + error.message });
   }
 });
@@ -244,7 +244,7 @@ ${context}`;
       modelUsed,
     });
   } catch (error) {
-    console.error('AI insights error:', error);
+    console.error('Super Intelligence (SI) insights error:', error);
     res.status(500).json({ error: 'Failed to generate insights: ' + error.message });
   }
 });

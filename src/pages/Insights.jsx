@@ -85,7 +85,7 @@ export default function Insights() {
   const [focus, setFocus] = useState('lunar');
   const [insights, setInsights] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isAiGenerated, setIsAiGenerated] = useState(false);
+  const [isSiGenerated, setIsSiGenerated] = useState(false);
 
   async function generate() {
     setLoading(true);
@@ -93,12 +93,12 @@ export default function Insights() {
     try {
       const data = await api.getInsights(focus);
       setInsights(data.insights);
-      setIsAiGenerated(true);
+      setIsSiGenerated(true);
     } catch (err) {
-      console.warn('AI insight service fallback triggered:', err);
+      console.warn('SI insight service fallback triggered:', err);
       // Fallback to curated research insight
       setInsights(CURATED_INSIGHTS[focus]);
-      setIsAiGenerated(false);
+      setIsSiGenerated(false);
     } finally {
       setLoading(false);
     }
@@ -127,7 +127,7 @@ export default function Insights() {
               onClick={() => {
                 setFocus(f.key);
                 setInsights('');
-                setIsAiGenerated(false);
+                setIsSiGenerated(false);
               }}
               className={`text-left p-5 rounded-lg border transition-all flex flex-col justify-between ${
                 isSelected
@@ -171,7 +171,7 @@ export default function Insights() {
           className="bg-[#126959] text-white rounded px-5 py-2 text-xs font-medium hover:bg-[#126959]/90 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
         >
           <Sparkles size={14} />
-          {loading ? 'Synthesizing with Gemini AI…' : 'Regenerate Live with Gemini'}
+          {loading ? 'Synthesizing with SI Cascade…' : 'Regenerate Live with SI'}
         </button>
       </div>
 
@@ -187,14 +187,14 @@ export default function Insights() {
                 {FOCUSES.find(f => f.key === focus)?.label} — Fire Safety Synthesis
               </h2>
               <p className="text-[10px] text-[#6c7c7d] font-mono">
-                {isAiGenerated ? 'Live Gemini 2.0 Flash Synthesis' : 'Curated Expert Baseline + Source Citations'}
+                {isSiGenerated ? 'Live Super Intelligence (SI) Multi-Model Synthesis' : 'Curated Expert Baseline + Source Citations'}
               </p>
             </div>
           </div>
           <span className={`text-[9px] uppercase tracking-wider px-2.5 py-1 rounded font-medium ${
-            isAiGenerated ? 'bg-[#e5edf3] text-[#4e768c]' : 'bg-[#edf0df] text-[#69734f]'
+            isSiGenerated ? 'bg-[#e5edf3] text-[#4e768c]' : 'bg-[#edf0df] text-[#69734f]'
           }`}>
-            {isAiGenerated ? 'LIVE AI SYNTHESIS' : 'CURATED EVIDENCE BRIEF'}
+            {isSiGenerated ? 'LIVE SI SYNTHESIS' : 'CURATED EVIDENCE BRIEF'}
           </span>
         </div>
 

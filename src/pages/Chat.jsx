@@ -50,7 +50,7 @@ export default function Chat() {
       console.error('Chat error:', err);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `I couldn't reach the AI service directly (${err.message || 'Check GEMINI_API_KEY in .env'}).
+        content: `I couldn't reach the SI service directly (${err.message || 'Check GEMINI_API_KEY in .env'}).
 
 **Knowledge Baseline for your query:**
 In microgravity, buoyancy is absent, eliminating natural convection. Flames form diffusion-controlled spherical envelopes. Solid combustion investigations like **BASS-II [PSI-25]** and large-scale **Saffire [PSI-98]** show that slow ventilation (forced flow) drives sustained flame spread, while elevated oxygen concentrations (≥30% expected in lunar habitats) drastically lower ignition energy and raise burning rates. For smoke detection, **SAME [PSI-102]** and **SAME-R [PSI-101]** show larger particle agglomeration in microgravity.`,
@@ -72,7 +72,7 @@ In microgravity, buoyancy is absent, eliminating natural convection. Flames form
       {/* Top Header */}
       <div className="flex items-center justify-between mb-3 shrink-0">
         <div>
-          <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-0.5 uppercase">AI RESEARCH ASSISTANT</p>
+          <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-0.5 uppercase">SI RESEARCH ASSISTANT</p>
           <h1 className="text-2xl font-medium tracking-tight">
             Consult the Microgravity Fire Evidence
           </h1>
