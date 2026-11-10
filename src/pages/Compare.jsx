@@ -233,7 +233,7 @@ export default function Compare() {
           </div>
 
           {/* AI Comparison Analysis */}
-          false && <div className="bg-white border border-[#dce2db] rounded-lg p-6 shadow-sm">
+          <div className="bg-white border border-[#dce2db] rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
               <div>
                 <p className="text-[9px] tracking-[1.5px] text-[#6c7c7d] font-bold uppercase mb-0.5">SUPER INTELLIGENCE (SI) ENGINE</p>
