@@ -32,3 +32,9 @@ export const api = {
   getTestData: (invId) => fetchJson(`/data/tests/${invId}`),
   exportCsv: (invId) => `${API_BASE}/data/export/${invId}`,
   exportJson: (invId) => `${API_BASE}/data/export-json/${invId}`,
+
+  askAI: (message, sessionId = 'default') =>
+    fetchJson('/ai/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message, sessionId }),
+    }),

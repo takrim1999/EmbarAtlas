@@ -4,6 +4,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import investigationsRouter from './routes/investigations.js';
+import aiRouter from './routes/ai.js';
 import dataRouter from './routes/data.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // API routes
 app.use('/api/investigations', investigationsRouter);
+app.use('/api/ai', aiRouter);
 app.use('/api/data', dataRouter);
 
 // Health check endpoint
