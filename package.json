@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20 <=22"
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:client": "vite",
@@ -14,7 +17,6 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
-    "better-sqlite3": "^11.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
@@ -25,6 +27,9 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
     "recharts": "^2.15.3"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.7.0"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
