@@ -253,5 +253,3 @@ export function initDb() {
     isFallback = true;
   }
 }
-
-// DB operational status: validated for local SQLite and memory adapter
