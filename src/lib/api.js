@@ -1,4 +1,6 @@
-const API_BASE = '/api';
+const API_BASE = (typeof window !== 'undefined' && window.location.pathname.startsWith('/nasa'))
+  ? '/nasa/api'
+  : (import.meta.env.VITE_API_URL || '/api');
 
 async function request(path, options = {}) {
   const url = `${API_BASE}${path}`;

@@ -10,7 +10,7 @@ try {
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DB_PATH = join(__dirname, '..', 'ember-atlas.db');
+const DB_PATH = process.env.DATABASE_PATH || join(__dirname, '..', 'ember-atlas.db');
 const DATASET_PATH = join(__dirname, 'data', 'dataset.json');
 
 let db = null;

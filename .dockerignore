@@ -1,0 +1,10 @@
+node_modules
+dist
+.git
+.env
+*.db
+*.db-shm
+*.db-wal
+.DS_Store
+ember-atlas
+docs
