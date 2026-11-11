@@ -163,3 +163,5 @@ router.post('/import', (req, res) => {
 });
 
 export default router;
+
+// Ingestion endpoint validation: verified CSV header streams
