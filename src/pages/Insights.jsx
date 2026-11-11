@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Brain, Sparkles, Moon, Rocket, Home, Globe, AlertTriangle, ShieldCheck, HelpCircle } from 'lucide-react';
 import { api } from '../lib/api';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 const FOCUSES = [
   { 
@@ -198,10 +199,7 @@ export default function Insights() {
           </span>
         </div>
 
-        <div
-          className="ai-response text-xs text-[#51675b] leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: currentText.replace(/\n/g, '<br />') }}
-        />
+        <MarkdownRenderer content={currentText} />
 
         <div className="mt-8 pt-4 border-t border-[#e4e9df] flex items-start gap-2.5 bg-[#fdfefc] p-4 rounded-md">
           <AlertTriangle size={16} className="text-[#df8656] shrink-0 mt-0.5" />

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Send, Flame, User, Sparkles, RotateCcw, ExternalLink, Info } from 'lucide-react';
 import { api } from '../lib/api';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 const SUGGESTED = [
   'Which experiments are most relevant to lunar habitat fire safety?',
@@ -140,10 +141,7 @@ In microgravity, buoyancy is absent, eliminating natural convection. Flames form
               {msg.role === 'user' ? (
                 <p>{msg.content}</p>
               ) : (
-                <div
-                  className="ai-response text-xs text-[#51675b] leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: msg.content.replace(/\n/g, '<br />') }}
-                />
+                <MarkdownRenderer content={msg.content} />
               )}
               
               {msg.citations && msg.citations.length > 0 && (

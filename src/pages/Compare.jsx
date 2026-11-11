@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { GitCompareArrows, Plus, Sparkles, X, ExternalLink, ArrowRight } from 'lucide-react';
 import { api } from '../lib/api';
+import MarkdownRenderer from '../components/MarkdownRenderer';
 
 export default function Compare() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -251,10 +252,9 @@ export default function Compare() {
             </div>
             
             {aiSummary ? (
-              <div 
-                className="ai-response text-xs text-[#51675b] leading-relaxed bg-[#fbfdfa] p-5 rounded-lg border border-[#e2e7df]"
-                dangerouslySetInnerHTML={{ __html: aiSummary.replace(/\n/g, '<br />') }}
-              />
+              <div className="bg-[#fbfdfa] p-5 rounded-lg border border-[#e2e7df]">
+                <MarkdownRenderer content={aiSummary} />
+              </div>
             ) : (
               <p className="text-xs text-[#6c7c7d] py-3">
                 Click <strong>"Generate SI Synthesis"</strong> to instruct the Super Intelligence engine to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
