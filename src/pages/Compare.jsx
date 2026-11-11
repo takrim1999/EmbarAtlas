@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { GitCompareArrows, Plus, Sparkles, X, ExternalLink, ArrowRight } from 'lucide-react';
 import { api } from '../lib/api';
@@ -12,6 +12,31 @@ export default function Compare() {
   const [aiSummary, setAiSummary] = useState('');
   const [loadingAi, setLoadingAi] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    function handleKeyDown(event) {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDropdownOpen]);
 
   useEffect(() => {
     const idsParam = searchParams.get('ids');
@@ -100,22 +125,45 @@ export default function Compare() {
         })}
         
         {selectedIds.length < 3 && (
-          <div className="relative group">
-            <button className="flex items-center gap-1.5 border border-dashed border-[#a0b898] rounded-full px-3.5 py-1.5 text-xs text-[#126959] hover:bg-[#eaf0e6] transition-colors font-medium">
-              <Plus size={14} /> Add study ({selectedIds.length}/3)
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setIsDropdownOpen(prev => !prev)}
+              className={`flex items-center gap-1.5 border border-dashed rounded-full px-3.5 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
+                isDropdownOpen
+                  ? 'border-[#126959] bg-[#eaf0e6] text-[#126959]'
+                  : 'border-[#a0b898] text-[#126959] hover:bg-[#eaf0e6]'
+              }`}
+              aria-expanded={isDropdownOpen}
+              aria-haspopup="listbox"
+            >
+              <Plus size={14} className={`transition-transform duration-150 ${isDropdownOpen ? 'rotate-45' : ''}`} />
+              Add study ({selectedIds.length}/3)
             </button>
-            <div className="absolute top-full left-0 mt-1 bg-white border border-[#dce2db] rounded-lg shadow-lg z-20 w-72 max-h-64 overflow-y-auto hidden group-hover:block">
-              {available.map(inv => (
-                <button
-                  key={inv.id}
-                  onClick={() => addId(inv.id)}
-                  className="w-full text-left px-3.5 py-2.5 text-xs hover:bg-[#f3f5ed] border-b border-[#f0f3ee] last:border-0 flex items-center justify-between"
-                >
-                  <span className="font-medium text-[#183235]">{inv.name}</span>
-                  <span className="text-[10px] text-[#8c9a90] font-mono">{inv.id}</span>
-                </button>
-              ))}
-            </div>
+            {isDropdownOpen && (
+              <div className="absolute top-full left-0 mt-1.5 bg-white border border-[#dce2db] rounded-lg shadow-xl z-30 w-72 max-h-64 overflow-y-auto animate-fade-in">
+                {available.length === 0 ? (
+                  <div className="px-3.5 py-3 text-xs text-[#8c9a90] text-center">
+                    All studies added
+                  </div>
+                ) : (
+                  available.map(inv => (
+                    <button
+                      key={inv.id}
+                      type="button"
+                      onClick={() => {
+                        addId(inv.id);
+                        setIsDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-3.5 py-2.5 text-xs hover:bg-[#f3f5ed] border-b border-[#f0f3ee] last:border-0 flex items-center justify-between cursor-pointer transition-colors"
+                    >
+                      <span className="font-medium text-[#183235] truncate mr-2">{inv.name}</span>
+                      <span className="text-[10px] text-[#8c9a90] font-mono shrink-0">{inv.id}</span>
+                    </button>
+                  ))
+                )}
+              </div>
+            )}
           </div>
         )}
         
