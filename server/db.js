@@ -244,6 +244,52 @@ export function initDb() {
         CREATE INDEX IF NOT EXISTS idx_ai_conversations_session ON ai_conversations(session_id);
       `);
       console.log('📦 SQLite database initialized');
+
+      // Auto-seed if database is empty
+      const invCount = database.prepare('SELECT count(*) as count FROM investigations').get();
+      if (invCount && invCount.count === 0) {
+        console.log('🌱 Database is empty, auto-seeding from dataset.json...');
+        const data = loadFallbackData();
+        const insertInv = database.prepare(`
+          INSERT INTO investigations (
+            id, name, title, topic, fuel_type, summary, objectives, approach, relevance,
+            conditions, measurements, limitations, hardware, facility, url, doi,
+            source_section, license, year_start, year_end, gravity_regime,
+            safety_relevance_score, tags, related_investigations, earthApplications
+          ) VALUES (
+            @id, @name, @title, @topic, @fuel_type, @summary, @objectives, @approach, @relevance,
+            @conditions, @measurements, @limitations, @hardware, @facility, @url, @doi,
+            @source_section, @license, @year_start, @year_end, @gravity_regime,
+            @safety_relevance_score, @tags, @related_investigations, @earthApplications
+          )
+        `);
+        const insertExp = database.prepare(`
+          INSERT INTO experimental_data (
+            investigation_id, test_id, fuel, pressure_mmhg, oxygen_mole_fraction,
+            initial_diameter_mm, extinction_diameter_mm, burn_time_s, flame_spread_rate,
+            flow_velocity, sample_material, sample_geometry, temperature_c, test_end, notes
+          ) VALUES (
+            @investigation_id, @test_id, @fuel, @pressure_mmhg, @oxygen_mole_fraction,
+            @initial_diameter_mm, @extinction_diameter_mm, @burn_time_s, @flame_spread_rate,
+            @flow_velocity, @sample_material, @sample_geometry, @temperature_c, @test_end, @notes
+          )
+        `);
+
+        const seedTx = database.transaction(() => {
+          for (const inv of (data.investigations || [])) {
+            insertInv.run({
+              ...inv,
+              tags: Array.isArray(inv.tags) ? JSON.stringify(inv.tags) : (inv.tags || '[]'),
+              related_investigations: Array.isArray(inv.related_investigations) ? JSON.stringify(inv.related_investigations) : (inv.related_investigations || '[]')
+            });
+          }
+          for (const exp of (data.experimental_data || [])) {
+            insertExp.run(exp);
+          }
+        });
+        seedTx();
+        console.log(`✅ Auto-seeded ${data.investigations.length} investigations and ${data.experimental_data.length} experimental records`);
+      }
     } else {
       console.log('📦 In-memory dataset initialized');
     }
