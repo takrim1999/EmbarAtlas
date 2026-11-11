@@ -79,3 +79,34 @@ Open **[http://localhost:3001](http://localhost:3001)**.
 
 ---
 
+## 🌐 Deploy to Vercel (1-Click)
+
+The repository is pre-configured for Vercel:
+
+1. Push this project to GitHub:
+   ```bash
+   git add .
+   git commit -m "Ember Atlas v2.0 fullstack release"
+   git push origin main
+   ```
+2. In the [Vercel Dashboard](https://vercel.com/new):
+   - Import your GitHub repository.
+   - Framework Preset: **Vite**.
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+3. Add Environment Variable:
+   - `GEMINI_API_KEY`: Your Google Gemini API key
+4. Click **Deploy**!
+
+---
+
+## 🔬 Evidence Boundary & Scientific Integrity
+
+- **Microgravity ≠ Partial Gravity:** The PSI database contains flight data from microgravity (~0g). These results bound behavior but do not validate flame spread under lunar (1/6g) or Martian (3/8g) gravity without dedicated partial-gravity testing (e.g. LUCI, FM2).
+- **Transparent Provenance:** Every study card links directly to its primary record in the NASA Physical Science Informatics archive and includes registered DOI citations.
+
+---
+
+## 📜 License & Attribution
+- NASA PSI data is in the public domain (CC0-1.0).
+- Built for the NASA Space Apps Challenge 2026.
