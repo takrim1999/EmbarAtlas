@@ -17,7 +17,7 @@ const navItems = [
   { to: '/compare', icon: GitCompareArrows, label: 'Compare' },
   { to: '/data', icon: Database, label: 'Data Explorer' },
   { to: '/insights', icon: Brain, label: 'Research Insights' },
-  { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
+  { to: '/chat', icon: MessageCircle, label: 'SI Assistant' },
   { to: '/method', icon: BookOpen, label: 'Sources & Method' },
 ];
 
@@ -143,7 +143,7 @@ export default function App() {
               <Orbit size={13} className="text-[#df8656]" /> Mission brief
             </button>
             <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#749e78]" />
-            <span className="hidden sm:inline">AI-assisted Dashboard</span>
+            <span className="hidden sm:inline">SI-powered Dashboard</span>
             <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v2.1</span>
           </div>
         </header>

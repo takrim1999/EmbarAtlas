@@ -97,7 +97,7 @@ export default function Compare() {
       const data = await api.summarize(selectedIds);
       if (requestId !== generation.current) return;
       setAiSummary(data.summary || 'No summary returned.');
-      setSummaryNotice(data.notice || 'AI interpretation; review the sources.');
+      setSummaryNotice(data.notice || 'SI interpretation; review the sources.');
     } catch (err) {
       if (requestId !== generation.current) return;
       setAiSummary('The assistant could not complete this comparison. Please retry. The source comparison table above remains available.');
@@ -319,7 +319,7 @@ export default function Compare() {
               </div>
             ) : (
               <p className="text-xs text-[#6c7c7d] py-3">
-                Click <strong>"Generate research brief"</strong> to instruct the AI research assistant engine to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
+                Click <strong>"Generate research brief"</strong> to instruct the SI research assistant engine to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
               </p>
             )}
           </div>

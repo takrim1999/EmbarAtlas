@@ -29,7 +29,7 @@ export default function Insights() {
   return <div className="animate-fade-in max-w-6xl">
     <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-1 uppercase">SOURCE-LINKED RESEARCH ASSISTANCE</p>
     <h1 className="text-3xl font-medium tracking-tight mb-2">Fire Research Insights</h1>
-    <p className="text-xs text-[#6c7c7d] leading-relaxed mb-6 max-w-2xl">Explore research questions using five detailed NASA PSI metadata briefs and a five-row FLEX sample. AI interpretations need human review; this tool does not recommend operational fire-response procedures.</p>
+    <p className="text-xs text-[#6c7c7d] leading-relaxed mb-6 max-w-2xl">Explore research questions using five detailed NASA PSI metadata briefs and a five-row FLEX sample. SI interpretations need human review; this tool does not recommend operational fire-response procedures.</p>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       {FOCUSES.map(({key,label,icon:Icon,question})=><button key={key} type="button" onClick={()=>{generation.current++;setFocus(key);setResult(null);setLoading(false);setError('');}}
         className={`text-left p-5 rounded-lg border ${focus===key?'bg-[#183b3d] text-white':'bg-white border-[#dce2db] text-[#183235]'}`}>
@@ -42,7 +42,7 @@ export default function Insights() {
       <button type="button" disabled={loading} onClick={generate} className="bg-[#126959] text-white rounded px-5 py-2 text-xs font-medium disabled:opacity-50 flex gap-2 items-center">
         <Sparkles size={14}/>{loading?'Reviewing source evidence…':'Generate research brief'}
       </button>
-      <p className="text-xs text-[#6c7c7d] mt-3">If live AI is unavailable, the service returns a labeled source brief. It does not substitute generated conclusions.</p>
+      <p className="text-xs text-[#6c7c7d] mt-3">If live SI is unavailable, the service returns a labeled source brief. It does not substitute generated conclusions.</p>
     </div>
     {error&&<p role="alert" className="bg-[#edf0df] p-4 rounded text-sm mb-4">{error}</p>}
     {result&&<article className="bg-white border border-[#dce2db] rounded-lg p-6 mb-6">

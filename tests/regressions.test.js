@@ -80,13 +80,13 @@ test('citation checks reject absent or out-of-context IDs',()=>{
   assert.equal(validateCitations('Claim [PSI-69, PSI-25]',selected).valid,false);
   assert.equal(validateCitations('Uncited claim',selected).valid,false);
 });
-test('AI provider output is labeled, and invalid citations fall back without claiming generation',async()=>{
+test('SI provider output is labeled, and invalid citations fall back without claiming generation',async()=>{
   const selected=[findInvestigation('PSI-69')];let sent;
   const mock=text=>async(url,options)=>{sent=JSON.parse(options.body);return {ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text}]}}]})};};
   const good=await generate({selected,message:'What did FLEX study?',apiKey:'test-not-real',models:['test-model'],fetchImpl:mock('FLEX studies droplets [PSI-69].')});
   assert.equal(good.mode,'ai');assert.match(sent.contents.at(-1).parts[0].text,/20CAL08/);
   const bad=await generate({selected,message:'Question',apiKey:'test-not-real',models:['test-model'],fetchImpl:mock('Claim [PSI-25].')});
-  assert.equal(bad.mode,'source_brief');assert.equal(bad.modelUsed,null);assert.match(bad.text,/not an AI-generated answer/);
+  assert.equal(bad.mode,'source_brief');assert.equal(bad.modelUsed,null);assert.match(bad.text,/not a generated SI answer/);
 });
 test('provider timeouts abort and return a labeled source brief',async()=>{
   const started=Date.now();

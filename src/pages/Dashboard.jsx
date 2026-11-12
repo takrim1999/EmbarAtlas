@@ -105,7 +105,7 @@ export default function Dashboard() {
           { to: '/explore', icon: Search, label: 'Explore Evidence', desc: 'Search and filter investigations', color: 'bg-[#126959]' },
           { to: '/compare', icon: GitCompareArrows, label: 'Compare Studies', desc: 'Side-by-side analysis', color: 'bg-[#4e768c]' },
           { to: '/insights', icon: Brain, label: 'Research Insights', desc: 'Source-linked research briefs', color: 'bg-[#9d7440]' },
-          { to: '/chat', icon: Flame, label: 'Ask AI', desc: 'Chat with research assistant', color: 'bg-[#df8656]' },
+          { to: '/chat', icon: Flame, label: 'Ask SI', desc: 'Chat with SI research assistant', color: 'bg-[#df8656]' },
         ].map(({ to, icon: Icon, label, desc, color }) => (
           <Link
             key={to}

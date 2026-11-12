@@ -5,7 +5,7 @@
 - **Challenge:** [Flame in Freefall](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/)
 - **Source & Provenance Register:** [docs/AI-AND-SOURCES.md](docs/AI-AND-SOURCES.md)
 
-Ember Atlas helps students and researchers find, compare, and inspect NASA microgravity fire research. It combines a searchable evidence catalog, source-linked briefs, side-by-side study comparison, a traceable numerical explorer, and a grounded AI research assistant.
+Ember Atlas helps students and researchers find, compare, and inspect NASA microgravity fire research. It combines a searchable evidence catalog, source-linked briefs, side-by-side study comparison, a traceable numerical explorer, and a grounded Super Intelligence (SI) research assistant.
 
 ![Ember Atlas Preview](ember-atlas-preview.jpg)
 
@@ -18,10 +18,10 @@ Ember Atlas helps students and researchers find, compare, and inspect NASA micro
 - Filter by fire-safety topic (`prevention`, `detection`, `suppression`, `combustion_science`), fuel geometry (`solid`, `liquid`, `gas`, `smoke`), or hardware.
 - Distinguishes `source_checked`, `metadata_reviewed`, and `overview_only` records and labels editorial relevance scores clearly as browsing aids rather than NASA safety ratings.
 
-### 2. 🤖 Grounded AI Research Assistant (`gemini-3.5-flash-lite` & `gemini-3.1-flash-lite`)
+### 2. 🤖 Grounded Super Intelligence (SI) Research Assistant (`gemini-3.5-flash-lite` & `gemini-3.1-flash-lite`)
 - **Multi-Turn Evidence Grounding:** Attaches curated NASA evidence records on every conversation turn rather than relying on prior model turns as a source.
 - **Structured Claim Boundaries:** Separates *Objectives*, *Methods*, *Observations*, and *Limitations*, and validates that bracketed source citations (`[PSI-25]`, `[PSI-69]`, `[PSI-98]`, `[PSI-101]`, `[PSI-102]`) belong to the supplied evidence scope.
-- **Deterministic Source-Brief Fallback:** When live AI generation is unconfigured, times out, or produces out-of-scope citations, endpoints return a clearly labeled deterministic source brief rather than fabricated claims.
+- **Deterministic Source-Brief Fallback:** When live SI generation is unconfigured, times out, or produces out-of-scope citations, endpoints return a clearly labeled deterministic source brief rather than fabricated claims.
 
 ### 3. 📊 Source-Checked Numerical Data Explorer
 - Imports **5 cell-checked methanol droplet tests** (`20CAL08`, `20CAL10`, `20CAL12`, `30CAL02`, `30CAL03`) from the NASA `PSI-69` (FLEX) Version 5 Experimental Table (rows 1–5).
@@ -29,7 +29,7 @@ Ember Atlas helps students and researchers find, compare, and inspect NASA micro
 - Supports one-click **CSV** and **JSON** export with full provenance metadata and spreadsheet formula-prefix escaping.
 
 ### 4. ⚖️ Side-by-Side Study Comparison
-- Compare 2 to 3 investigations across topic, fuel type, hardware, facility, gravity regime, conditions, measurements, limitations, and evidence status, paired with optional grounded AI synthesis.
+- Compare 2 to 3 investigations across topic, fuel type, hardware, facility, gravity regime, conditions, measurements, limitations, and evidence status, paired with optional grounded SI synthesis.
 
 ---
 
@@ -38,7 +38,7 @@ Ember Atlas helps students and researchers find, compare, and inspect NASA micro
 - **Frontend:** React 19, Vite 6, TailwindCSS v4, Recharts, Lucide React, React Router v7, `marked` + `sanitize-html`
 - **Backend:** Node.js (20–22), Express 5, optional `better-sqlite3` with process-local conversation fallback
 - **Corpus Authority:** `server/data/dataset.json` (`2026-11-13-reviewed`) serves as the authoritative read-only research catalog across both SQLite and serverless deployments
-- **AI Integration:** Google Gemini REST API (`gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`) with 18s per-model timeouts and server-side API key isolation
+- **SI Integration:** Google Gemini REST API (`gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`) with 18s per-model timeouts and server-side API key isolation
 
 ---
 
@@ -56,7 +56,7 @@ npm run build
 npm start
 ```
 
-Open `http://localhost:3001/nasa/` (or run `npm run dev` for Vite development at `http://localhost:5173/nasa/` with the Express API on port `3001`). Without an AI key, all catalog browsing, comparisons, charts, exports, and deterministic source briefs work out of the box.
+Open `http://localhost:3001/nasa/` (or run `npm run dev` for Vite development at `http://localhost:5173/nasa/` with the Express API on port `3001`). Without an API key, all catalog browsing, comparisons, charts, exports, and deterministic source briefs work out of the box.
 
 ### Validate
 ```bash

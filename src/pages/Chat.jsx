@@ -72,7 +72,7 @@ export default function Chat() {
       {/* Top Header */}
       <div className="flex items-center justify-between mb-3 shrink-0">
         <div>
-          <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-0.5 uppercase">AI RESEARCH ASSISTANT</p>
+          <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-0.5 uppercase">SI RESEARCH ASSISTANT</p>
           <h1 className="text-2xl font-medium tracking-tight">
             Consult the Microgravity Fire Evidence
           </h1>
@@ -102,7 +102,7 @@ export default function Chat() {
             </div>
             <h2 className="text-lg font-semibold mb-1 text-[#183235]">Ember Atlas Research Assistant</h2>
             <p className="text-xs text-[#6c7c7d] max-w-md mx-auto leading-relaxed mb-6">
-              Ask deep questions about flame diffusion, smoke detection instruments, elevated oxygen risks, and suppression in space. Uses a curated NASA source catalog. AI interpretations can be wrong; inspect the cited evidence.
+              Ask deep questions about flame diffusion, smoke detection instruments, elevated oxygen risks, and suppression in space. Uses a curated NASA source catalog. SI interpretations can be wrong; inspect the cited evidence.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-2xl mx-auto">

@@ -1,12 +1,12 @@
-# AI use and source provenance
+# Super Intelligence (SI) use and source provenance
 
 Reviewed: November 13, 2026. Corpus version: `2026-11-13-reviewed`.
 
-## Runtime AI architecture and boundaries
+## Runtime SI architecture and boundaries
 
 Runtime generation uses Google's Gemini REST API with configurable model names (`gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`). Each request sends selected public NASA metadata, the user's question, and recent conversation turns. No API keys are sent to the frontend. Every turn includes current evidence; old model responses are not treated as sources. Invalid or absent citation IDs, timeouts, missing credentials, blocked responses, or provider failures return a deterministic source brief with an explicit label. A source brief is not a generated scientific answer.
 
-Citation membership checks verify that bracketed IDs belong to the supplied evidence selection; they cannot establish factual accuracy or scientific entailment. The system prompt separates objectives, methods, observations, and limitations, and rendered Markdown is sanitized with `sanitize-html`. Review all AI interpretations against the primary NASA source.
+Citation membership checks verify that bracketed IDs belong to the supplied evidence selection; they cannot establish factual accuracy or scientific entailment. The system prompt separates objectives, methods, observations, and limitations, and rendered Markdown is sanitized with `sanitize-html`. Review all SI interpretations against the primary NASA source.
 
 ## Five detailed metadata records
 

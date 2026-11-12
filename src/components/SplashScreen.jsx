@@ -39,7 +39,7 @@ export default function SplashScreen({ onClose }) {
   const steps = [
     { n: '01', icon: Search, title: 'Discover', to: '/explore', text: `${total} NASA combustion investigations, filtered by prevention, detection and suppression.` },
     { n: '02', icon: GitCompareArrows, title: 'Compare', to: '/compare?ids=PSI-102,PSI-101', text: 'Line up the SAME and SAME-R smoke studies: hardware, conditions and limitations.' },
-    { n: '03', icon: MessageCircle, title: 'Ask', to: '/chat', text: 'AI answers built only from supplied NASA records, with every citation ID checked.' },
+    { n: '03', icon: MessageCircle, title: 'Ask', to: '/chat', text: 'SI answers built only from supplied NASA records, with every citation ID checked.' },
     { n: '04', icon: Database, title: 'Inspect', to: '/data', text: `${rows} FLEX droplet tests, checked against NASA's PSI-69 experimental table.` },
   ];
 
