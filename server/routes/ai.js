@@ -39,16 +39,22 @@ router.post('/summarize', async (req,res) => {
   const ids=req.body?.investigationIds;
   if (!Array.isArray(ids) || !ids.length || !validIds(ids,3)) return res.status(400).json({error:'Choose 1 to 3 valid investigations.'});
   try {
-    const result=await generate({selected:ids.map(findInvestigation),message:'Compare the supplied investigations: objectives, methods, conditions, measurements, limitations. Do not turn objectives into findings. Keep under 600 words.'});
+    const result=await generate({selected:ids.map(findInvestigation),message:'Provide a structured research synthesis comparing the supplied investigations: objectives, experimental approach, conditions tested, observed measurements, physical phenomena, and critical limitations. Distinguish hypotheses from observed findings, and cite each study with [ID].'});
     res.json({...result,summary:result.text,investigationIds:ids});
   } catch {res.status(500).json({error:'Comparison is unavailable. The source comparison table remains accessible.'});}
 });
 router.post('/insights', async (req,res) => {
   const focus=req.body?.focus || 'general';
   if (!['lunar','mars','spacecraft','general'].includes(focus)) return res.status(400).json({error:'Unknown research focus.'});
+  const focusLabels = {
+    lunar: 'Lunar habitats and pressurized rovers (30%+ O2, 10.2 psi, 1/6g partial gravity)',
+    mars: 'Mars transit and surface missions (long duration, sensor longevity, partial gravity)',
+    spacecraft: 'Orbital spacecraft and space stations (ventilation airflow, fabric fire spread, cool flames)',
+    general: 'Comprehensive fire safety synthesis and terrestrial spin-offs'
+  };
   const ids=['PSI-25','PSI-98','PSI-102','PSI-101','PSI-69'];
   try {
-    const result=await generate({selected:ids.map(findInvestigation),message:`For ${focus} research, identify relevant investigations, evidence limits, and questions requiring further work. Do not prescribe fire response protocols, assert habitat specifications, or claim demonstrated technology transfers. Keep under 600 words.`});
+    const result=await generate({selected:ids.map(findInvestigation),message:`Provide a comprehensive fire safety research synthesis for: ${focusLabels[focus] || focus}. Structure your analysis into: 1. Critical Evidence-Based Findings, 2. Environmental & Operational Conditions, 3. Scientific Knowledge Gaps & Limitations, and 4. Engineering Recommendations. Cite relevant investigations with [ID].`});
     res.json({...result,insights:result.text,focus});
   } catch {res.status(500).json({error:'Insights are unavailable. Explore the source register instead.'});}
 });
