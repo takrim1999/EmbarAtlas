@@ -3,7 +3,10 @@ import { catalog, investigations, measurements, searchInvestigations, groupBy, f
 const router = Router();
 router.get('/', (req, res) => {
   if (Object.values(req.query).some(value => typeof value !== 'string')) return res.status(400).json({ error: 'Filters must be strings.' });
-  const results = searchInvestigations(req.query);
+  const results = searchInvestigations(req.query).map(inv => ({
+    ...inv,
+    experimentalRunCount: dataFor(inv.id).length
+  }));
   res.json({ investigations: results, total: results.length, catalogVersion: catalog.version });
 });
 router.get('/stats', (req, res) => res.json({

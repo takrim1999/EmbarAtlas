@@ -34,7 +34,7 @@ Source: [NASA PSI-69](https://psi.nasa.gov/physci/repo/data/investigations/PSI-6
 
 The source's blank extinction diameter for `30CAL02` is stored as `null`, not zero. The adjacent `0.6` belongs to the burning-rate column, which is not imported. Every active row includes `source_url`, `source_doi`, `source_location`, `verified_at`, and `evidence_status`. Exported files retain those fields.
 
-Do not compare unlike tests as a controlled study. These five rows do not isolate pressure effects, establish a limiting oxygen index, or certify solid-material behavior. No partial-gravity numerical observations are included.
+Do not compare unlike tests as a controlled study. Individual test runs illustrate microgravity combustion phenomena across prevention, detection, and suppression, but do not certify solid-material flight safety without full operational margin testing. No partial-gravity numerical observations are included.
 
 ## Other discovery entries
 

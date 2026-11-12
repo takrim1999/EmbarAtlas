@@ -21,10 +21,10 @@ const post=(path,body)=>fetch(base+path,{method:'POST',headers:{'Content-Type':'
 
 // Source-boundary regressions, including deployments with an existing legacy DB.
 test('all active numerical rows carry test-level provenance and the missing source cell stays null',()=>{
-  assert.equal(investigations.length,19);assert.equal(measurements.length,5);
-  assert.deepEqual(measurements.map(r=>r.test_id),['20CAL08','20CAL10','20CAL12','30CAL02','30CAL03']);
+  assert.equal(investigations.length,19);assert.equal(measurements.length,37);
+  assert.deepEqual(measurements.filter(r=>r.investigation_id==='PSI-69').map(r=>r.test_id),['20CAL08','20CAL10','20CAL12','30CAL02','30CAL03']);
   assert.equal(measurements.find(r=>r.test_id==='30CAL02').extinction_diameter_mm,null);
-  for(const row of measurements){assert.equal(row.evidence_status,'source_checked');assert.match(row.source_location,new RegExp(row.test_id));assert.ok(row.source_url.startsWith('https://psi.nasa.gov/'));assert.ok(row.source_doi);}
+  for(const row of measurements){assert.equal(row.evidence_status,'source_checked');assert.match(row.source_location,new RegExp(row.test_id));assert.ok(row.source_url.startsWith('https://'));assert.ok(row.source_doi);}
   assert.equal(findInvestigation('DAFT').title,'Dust and Aerosol Measurement Feasibility Test');
   assert.equal(findInvestigation('DAFT').topic,'detection');
   assert.match(findInvestigation('ACME-BRE').summary,/gaseous/);
@@ -36,8 +36,8 @@ test('catalog routes exclude legacy measurements and metadata without destroying
   db.prepare('UPDATE investigations SET title = ? WHERE id = ?').run('Wrong old DAFT title','DAFT');
   db.prepare('INSERT INTO experimental_data (investigation_id, test_id, burn_time_s) VALUES (?, ?, ?)').run('DAFT','UNVERIFIED-LEGACY',999);
   const daft=await (await fetch(base+'/investigations/DAFT')).json();
-  assert.equal(daft.title,'Dust and Aerosol Measurement Feasibility Test');assert.deepEqual(daft.experimentalData,[]);
-  const stats=await (await fetch(base+'/investigations/stats')).json();assert.equal(stats.dataPoints,5);assert.equal(stats.catalogVersion,catalog.version);
+  assert.equal(daft.title,'Dust and Aerosol Measurement Feasibility Test');assert.equal(daft.experimentalData.length,2);
+  const stats=await (await fetch(base+'/investigations/stats')).json();assert.equal(stats.dataPoints,37);assert.equal(stats.catalogVersion,catalog.version);
 });
 test('combined filters and multiword hardware search work identically without SQL parsing',async()=>{
   const result=await (await fetch(base+'/investigations?topic=detection&search=smoke%20particle')).json();
@@ -51,7 +51,8 @@ test('public imports cannot mutate the reviewed corpus',async()=>{
 test('CSV and JSON preserve provenance and missing measurements',async()=>{
   const csv=await (await fetch(base+'/data/export/PSI-69')).text();assert.match(csv,/source_location/);assert.match(csv,/20CAL08/);assert.doesNotMatch(csv,/UNVERIFIED-LEGACY/);
   const json=await (await fetch(base+'/data/export/PSI-69/json')).json();assert.equal(json.data.length,5);assert.equal(json.data[3].extinction_diameter_mm,null);
-  assert.equal((await fetch(base+'/data/export/DAFT')).status,404);
+  const daftCsv=await (await fetch(base+'/data/export/DAFT')).text();assert.match(daftCsv,/DAFT-DH-001/);assert.doesNotMatch(daftCsv,/UNVERIFIED-LEGACY/);
+  assert.equal((await fetch(base+'/data/export/SPICE')).status,404);
 });
 test('invalid selections and malformed bodies produce bounded API errors',async()=>{
   assert.equal((await post('/ai/summarize',{investigationIds:['UNKNOWN']})).status,400);

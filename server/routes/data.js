@@ -14,7 +14,7 @@ router.get('/export/:id/json', (req, res) => {
   if (!inv) return res.status(404).json({ error: 'Investigation not found.' });
   res.setHeader('Content-Disposition', `attachment; filename=${inv.id}-evidence.json`);
   res.json({ investigation: inv, data: dataFor(inv.id), catalogVersion: catalog.version,
-    source: 'Ember Atlas: curated NASA metadata and a five-row source-checked FLEX sample', exportedAt: new Date().toISOString() });
+    source: 'Ember Atlas: curated NASA metadata and source-checked PSI experimental corpus', exportedAt: new Date().toISOString() });
 });
 router.get('/export/:id', (req, res) => {
   if (!findInvestigation(req.params.id)) return res.status(404).json({ error: 'Investigation not found.' });

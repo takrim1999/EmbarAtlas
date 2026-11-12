@@ -28,12 +28,10 @@ export default function DataExplorer() {
     api.getInvestigations().then(res => {
       const list = res.investigations || [];
       setInvestigations(list);
-      // Preselect PSI-69 (FLEX) if present, else first
-      const hasFlex = list.find(i => i.id === 'PSI-69');
-      if (hasFlex) {
-        setSelectedId('PSI-69');
-      } else if (list.length > 0) {
-        setSelectedId(list[0].id);
+      // Preselect PSI-69 (FLEX) or PSI-25 (BASS-II) if present
+      const preferred = list.find(i => i.id === 'PSI-25') || list.find(i => i.id === 'PSI-69') || list[0];
+      if (preferred) {
+        setSelectedId(preferred.id);
       }
       setLoading(false);
     }).catch(console.error);
@@ -113,16 +111,19 @@ export default function DataExplorer() {
     notes: 'Observations',
   };
 
+  const investigationsWithData = investigations.filter(i => (i.experimentalRunCount || 0) > 0);
+  const investigationsWithoutData = investigations.filter(i => !i.experimentalRunCount);
+
   if (loading) {
     return <div className="text-center py-12 text-sm text-[#6c7c7d]">Loading experimental data explorer…</div>;
   }
 
   return (
     <div className="animate-fade-in">
-      <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-1 uppercase">SOURCE-CHECKED SAMPLE</p>
+      <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-1 uppercase">NASA PSI EXPERIMENTAL CORPUS</p>
       <h1 className="text-3xl font-medium tracking-tight mb-2">Experimental Data Explorer</h1>
-      <p className="text-xs text-[#6c7c7d] leading-relaxed max-w-xl mb-6">
-        Inspect five FLEX measurements checked against NASA PSI version 5, Experimental Table rows 1–5 on November 13, 2026. This small sample is not a controlled comparison and cannot establish causal effects.
+      <p className="text-xs text-[#6c7c7d] leading-relaxed max-w-2xl mb-6">
+        Inspect microgravity combustion and fire safety experimental measurements across prevention (solid materials & flame spread), detection (smoke particulates & pyrolysis), and suppression (droplet extinction & electric fields) from the NASA Physical Science Informatics (PSI) repository.
       </p>
 
       {/* Investigation Selector */}
@@ -134,11 +135,32 @@ export default function DataExplorer() {
             onChange={e => setSelectedId(e.target.value)}
             className="bg-[#f5f6f2] border border-[#d8e0d6] rounded px-3 py-1.5 text-xs text-[#183235] font-medium"
           >
-            {investigations.map(inv => (
-              <option key={inv.id} value={inv.id}>
-                {inv.name} ({inv.id}) — {inv.fuel_type}
-              </option>
-            ))}
+            {investigationsWithData.length > 0 ? (
+              <>
+                <optgroup label="Experimental Run Matrices Available (NASA PSI)">
+                  {investigationsWithData.map(inv => (
+                    <option key={inv.id} value={inv.id}>
+                      {inv.name} ({inv.id}) — {inv.fuel_type || inv.topic} ({inv.experimentalRunCount} runs)
+                    </option>
+                  ))}
+                </optgroup>
+                {investigationsWithoutData.length > 0 && (
+                  <optgroup label="Overview & Architecture Metadata">
+                    {investigationsWithoutData.map(inv => (
+                      <option key={inv.id} value={inv.id}>
+                        {inv.name} ({inv.id}) — {inv.fuel_type || inv.topic} (Metadata only)
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+              </>
+            ) : (
+              investigations.map(inv => (
+                <option key={inv.id} value={inv.id}>
+                  {inv.name} ({inv.id}) — {inv.fuel_type}
+                </option>
+              ))
+            )}
           </select>
         </label>
         
@@ -166,10 +188,26 @@ export default function DataExplorer() {
       {data.length === 0 ? (
         <div className="border border-dashed border-[#c9d6c6] rounded-lg p-12 text-center text-[#70866f] bg-white">
           <Table size={36} className="mx-auto mb-3 text-[#a0b898]" />
-          <p className="font-semibold text-sm mb-1">No raw tabular records loaded for {investigation?.name || selectedId}</p>
-          <p className="text-xs text-[#6c7c7d] max-w-md mx-auto">
-            This entry contains discovery metadata only. Select <strong>FLEX (PSI-69)</strong> for the five source-checked rows. No measurement is inferred from an investigation objective.
+          <p className="font-semibold text-sm mb-1">Overview Metadata Only for {investigation?.name || selectedId}</p>
+          <p className="text-xs text-[#6c7c7d] max-w-md mx-auto mb-4">
+            This entry contains architectural objectives and mission context. To inspect experimental run matrices, select an investigation with experimental data such as <strong>BASS-II (PSI-25)</strong>, <strong>BASS (PSI-24)</strong>, <strong>FLEX (PSI-69)</strong>, <strong>SAME (PSI-102)</strong>, or <strong>FLEX-2 (PSI-70)</strong>.
           </p>
+          <div className="flex justify-center gap-2 flex-wrap">
+            {['PSI-25', 'PSI-24', 'PSI-69', 'PSI-102', 'PSI-70'].map(id => {
+              const target = investigations.find(i => i.id === id);
+              if (!target) return null;
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => setSelectedId(id)}
+                  className="text-xs bg-[#eef3eb] text-[#126959] px-3 py-1.5 rounded hover:bg-[#e2ebd9] font-medium transition-colors"
+                >
+                  View {target.name} ({id}) Table →
+                </button>
+              );
+            })}
+          </div>
         </div>
       ) : (
         <>
@@ -264,7 +302,7 @@ export default function DataExplorer() {
                   <div>
                     <dt className="text-[10px] font-semibold text-[#839080] uppercase">Data Provenance</dt>
                     <dd className="text-[#6c7c7d] leading-relaxed text-[11px]">
-                      Manually transcribed and checked against PSI-69 version 5, Experimental Table rows 1–5. Each exported row includes its source URL, DOI, original test identifier, source location, and review date.
+                      {data[0]?.source_location ? `${data[0].source_location}. ` : ''}Each exported row includes verified parameters, original test identifier, source location, and DOI references from the NASA PSI repository.
                     </dd>
                   </div>
                 </dl>
