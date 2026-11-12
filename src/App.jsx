@@ -1,6 +1,8 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
-import { useState } from 'react';
-import { Flame, Search, GitCompareArrows, Database, Brain, MessageCircle, BookOpen, BarChart3, Menu, X } from 'lucide-react';
+import { useCallback, useState } from 'react';
+import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
+import { Flame, Search, GitCompareArrows, Database, Brain, MessageCircle, BookOpen, BarChart3, Menu, X, Orbit } from 'lucide-react';
+import SplashScreen from './components/SplashScreen';
 import Dashboard from './pages/Dashboard';
 import Explore from './pages/Explore';
 import Compare from './pages/Compare';
@@ -19,11 +21,38 @@ const navItems = [
   { to: '/method', icon: BookOpen, label: 'Sources & Method' },
 ];
 
+const SPLASH_KEY = 'ember_atlas_splash_seen';
+
+function shouldShowSplash() {
+  if (new URLSearchParams(window.location.search).get('splash') === '1') return true;
+  try {
+    return sessionStorage.getItem(SPLASH_KEY) !== '1';
+  } catch {
+    return true;
+  }
+}
+
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showSplash, setShowSplash] = useState(shouldShowSplash);
+
+  const closeSplash = useCallback(() => {
+    try {
+      sessionStorage.setItem(SPLASH_KEY, '1');
+    } catch {
+      // Storage can be unavailable in private modes; the splash simply reappears next load.
+    }
+    setShowSplash(false);
+  }, []);
   
   return (
     <div className="flex min-h-screen bg-[#f5f6f2] text-[#183235]">
+      <LazyMotion features={domAnimation} strict>
+        <AnimatePresence>
+          {showSplash && <SplashScreen key="splash" onClose={closeSplash} />}
+        </AnimatePresence>
+      </LazyMotion>
+
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
@@ -106,9 +135,16 @@ export default function App() {
             </span>
           </div>
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#749e78]" />
-            AI-assisted Dashboard
-            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v2.0</span>
+            <button
+              type="button"
+              onClick={() => setShowSplash(true)}
+              className="flex items-center gap-1.5 mr-2 px-2.5 py-1 rounded-md border border-[#dce2db] bg-white text-[#36514c] hover:border-[#df8656]/60 hover:text-[#183235] transition-colors"
+            >
+              <Orbit size={13} className="text-[#df8656]" /> Mission brief
+            </button>
+            <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#749e78]" />
+            <span className="hidden sm:inline">AI-assisted Dashboard</span>
+            <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v2.1</span>
           </div>
         </header>
         
