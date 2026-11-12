@@ -17,6 +17,29 @@ export default function Method() {
         ['04 / SCIENTIFIC LIMITS','Keep inference within the evidence','Objectives and hypotheses are not findings. Individual tests cannot establish absolute flammability limits for all space environments. This curated microgravity sample from PSI does not validate partial-gravity behavior or certify flight safety without operational margin testing.'],
       ].map(([step,title,text])=><article className="bg-white border border-[#dce2db] rounded-lg p-6" key={step}><p className="text-[10px] text-[#6c7c7d] mb-3">{step}</p><h2 className="text-base font-semibold mb-2">{title}</h2><p className="text-xs text-[#677d6d] leading-relaxed">{text}</p></article>)}
     </div>
+    <div className="bg-white border border-[#dce2db] rounded-lg p-6 mb-6 shadow-2xs">
+      <h2 className="text-base font-semibold mb-3 text-[#183235]">ISS Research Hardware Architecture</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-[#51675b] leading-relaxed">
+        <div className="bg-[#fafbf8] p-4 rounded border border-[#e4e9df]">
+          <h3 className="font-semibold text-[#183235] mb-1">CIR + ACME</h3>
+          <p className="text-[11px] text-[#6c7c7d]">
+            The Combustion Integrated Rack with the Advanced Combustion via Microgravity Experiments insert hosted 6 gaseous experiments (BRE, CFI-G, E-FIELD, s-Flame, CLD Flame, Coflow) using modular burner heads.
+          </p>
+        </div>
+        <div className="bg-[#fafbf8] p-4 rounded border border-[#e4e9df]">
+          <h3 className="font-semibold text-[#183235] mb-1">CIR + MDCA</h3>
+          <p className="text-[11px] text-[#6c7c7d]">
+            The Multi-user Droplet Combustion Apparatus studied single droplets of liquid fuels (FLEX, FLEX-2, CFI) suspended on fibers or free-floating, observing radiatively cooled extinction and cool flames.
+          </p>
+        </div>
+        <div className="bg-[#fafbf8] p-4 rounded border border-[#e4e9df]">
+          <h3 className="font-semibold text-[#183235] mb-1">MSG Flow Duct</h3>
+          <p className="text-[11px] text-[#6c7c7d]">
+            The Microgravity Science Glovebox hosted BASS, BASS-II, SPICE, and SLICE using a modular fan-driven flow duct to simulate low-velocity cabin ventilation over solid and gaseous fuel samples.
+          </p>
+        </div>
+      </div>
+    </div>
     <section className="bg-white border border-[#dce2db] rounded-lg p-6 mb-6">
       <h2 className="text-lg font-semibold mb-2">Primary source register</h2>
       <p className="text-xs text-[#6c7c7d] mb-4">{investigations.length} entries. App identifiers beginning ACME, CFI, DAFT, SPICE or SLICE are navigation identifiers, not NASA-issued PSI IDs.</p>

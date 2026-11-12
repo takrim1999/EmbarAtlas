@@ -195,19 +195,19 @@ export default function Dashboard() {
             <div className="border-l-2 border-[#df8656] pl-3">
               <p className="text-xs font-semibold text-[#183235]">Oxygen Concentration</p>
               <p className="text-[11px] text-[#6c7c7d] leading-relaxed mt-0.5">
-                Compare oxygen concentration together with pressure, fuel, and apparatus. This catalog does not prescribe a habitat atmosphere.
+                Lunar habitats expected at 30%+ O₂ (10.2 psi) — over 40% increase vs Earth's 21%, making materials significantly more flammable.
               </p>
             </div>
             <div className="border-l-2 border-[#4e768c] pl-3">
               <p className="text-xs font-semibold text-[#183235]">Microgravity Effects</p>
               <p className="text-[11px] text-[#6c7c7d] leading-relaxed mt-0.5">
-                Reduced buoyancy changes transport. Flame shape and behavior still depend on fuel, forced flow, and experimental geometry.
+                Absence of buoyant flow turns flickering teardrop flames into spherical, diffusion-controlled blue flames with low radiant loss.
               </p>
             </div>
             <div className="border-l-2 border-[#126959] pl-3">
               <p className="text-xs font-semibold text-[#183235]">Partial Gravity Gap</p>
               <p className="text-[11px] text-[#6c7c7d] leading-relaxed mt-0.5">
-                This curated sample contains microgravity studies. It cannot validate lunar or Martian fire behavior; consult dedicated partial-gravity research.
+                No lunar (1/6g) or Martian (3/8g) data in PSI yet. Future exploration tests will bridge the 0g to 1g envelope.
               </p>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-[9px] tracking-[1.5px] text-[#6c7c7d] font-bold mb-0.5 uppercase">PRIORITY INVESTIGATIONS</p>
-            <h2 className="text-base font-semibold">Editorial Research Priorities</h2>
+            <h2 className="text-base font-semibold">Highest Safety Relevance</h2>
           </div>
           <Link to="/explore" className="text-xs text-[#126959] font-medium no-underline flex items-center gap-1 hover:underline">
             View all ({stats?.total || 0}) <ArrowRight size={13} />
