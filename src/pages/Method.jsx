@@ -52,6 +52,8 @@ export default function Method() {
         </div><a className="shrink-0 text-xs text-[#126959] flex items-center gap-1" href={inv.url} target="_blank" rel="noopener noreferrer">NASA source <ExternalLink size={12}/></a>
       </article>)}</div>
     </section>
-    <p className="text-xs text-[#69734f] bg-[#edf0df] p-5 rounded-lg">Legacy records without traceable numerical provenance are excluded from charts, exports and SI context. No automatic ingestion of the full PSI archive or validation of operational fire-safety decisions is claimed.</p>
+    <div className="bg-[#edf0df] border border-[#dbe2c8] rounded-lg px-5 py-4 text-xs text-[#69734f] leading-relaxed">
+      <strong>NASA Space Apps Challenge 2026:</strong> Flame in Freefall. Built as an evidence exploration, ranking, and synthesis tool for aerospace researchers, students, and life support engineers.
+    </div>
   </div>;
 }
