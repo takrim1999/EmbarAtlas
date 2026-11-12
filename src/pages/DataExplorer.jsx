@@ -41,7 +41,11 @@ export default function DataExplorer() {
 
   useEffect(() => {
     if (!selectedId) return;
+    let cancelled = false;
+    setData([]);
+    setInvestigation(null);
     api.getInvestigation(selectedId).then(inv => {
+      if (cancelled) return;
       setInvestigation(inv);
       const rows = inv.experimentalData || [];
       setData(rows);
@@ -56,6 +60,7 @@ export default function DataExplorer() {
         }
       }
     }).catch(console.error);
+    return () => { cancelled = true; };
   }, [selectedId]);
 
   const numericCols = data.length > 0
@@ -114,10 +119,10 @@ export default function DataExplorer() {
 
   return (
     <div className="animate-fade-in">
-      <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-1 uppercase">NASA PSI EXPERIMENTAL LOGS</p>
+      <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-1 uppercase">SOURCE-CHECKED SAMPLE</p>
       <h1 className="text-3xl font-medium tracking-tight mb-2">Experimental Data Explorer</h1>
       <p className="text-xs text-[#6c7c7d] leading-relaxed max-w-xl mb-6">
-        Inspect recorded test measurements from NASA Physical Science Informatics tables. Examine burn durations, extinction diameters, ambient pressures, and test endings.
+        Inspect five FLEX measurements checked against NASA PSI version 5, Experimental Table rows 1–5 on November 13, 2026. This small sample is not a controlled comparison and cannot establish causal effects.
       </p>
 
       {/* Investigation Selector */}
@@ -139,7 +144,7 @@ export default function DataExplorer() {
         
         {data.length > 0 && (
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-[#6c7c7d] font-mono mr-2">{data.length} records in database</span>
+            <span className="text-[10px] text-[#6c7c7d] font-mono mr-2">{data.length} source-checked records</span>
             <a
               href={api.exportCsv(selectedId)}
               download
@@ -163,7 +168,7 @@ export default function DataExplorer() {
           <Table size={36} className="mx-auto mb-3 text-[#a0b898]" />
           <p className="font-semibold text-sm mb-1">No raw tabular records loaded for {investigation?.name || selectedId}</p>
           <p className="text-xs text-[#6c7c7d] max-w-md mx-auto">
-            This investigation is currently cataloged with objectives and metadata. Switch to <strong>FLEX (PSI-69)</strong>, <strong>FLEX-2 (PSI-70)</strong>, <strong>BASS-II (PSI-25)</strong>, or <strong>Saffire-I (PSI-98)</strong> to view experimental rows.
+            This entry contains discovery metadata only. Select <strong>FLEX (PSI-69)</strong> for the five source-checked rows. No measurement is inferred from an investigation objective.
           </p>
         </div>
       ) : (
@@ -259,7 +264,7 @@ export default function DataExplorer() {
                   <div>
                     <dt className="text-[10px] font-semibold text-[#839080] uppercase">Data Provenance</dt>
                     <dd className="text-[#6c7c7d] leading-relaxed text-[11px]">
-                      Transcribed directly from the NASA Physical Science Informatics database table ({investigation.id}).
+                      Manually transcribed and checked against PSI-69 version 5, Experimental Table rows 1–5. Each exported row includes its source URL, DOI, original test identifier, source location, and review date.
                     </dd>
                   </div>
                 </dl>
@@ -289,7 +294,7 @@ export default function DataExplorer() {
               <table className="w-full text-xs border-collapse">
                 <thead className="sticky top-0 bg-[#f3f6f0] z-10">
                   <tr>
-                    {Object.keys(data[0]).filter(k => k !== 'id' && k !== 'investigation_id').map(col => (
+                    {Object.keys(data[0]).filter(k => !['id', 'investigation_id', 'source_url', 'source_doi', 'source_location', 'verified_at', 'evidence_status'].includes(k)).map(col => (
                       <th
                         key={col}
                         onClick={() => toggleSort(col)}
@@ -304,7 +309,7 @@ export default function DataExplorer() {
                 <tbody className="divide-y divide-[#e4e9df]">
                   {sortedData.map((row, i) => (
                     <tr key={i} className="hover:bg-[#fbfcf9] transition-colors">
-                      {Object.entries(row).filter(([k]) => k !== 'id' && k !== 'investigation_id').map(([k, v]) => (
+                      {Object.entries(row).filter(([k]) => !['id', 'investigation_id', 'source_url', 'source_doi', 'source_location', 'verified_at', 'evidence_status'].includes(k)).map(([k, v]) => (
                         <td key={k} className="p-3 text-[#526b59] whitespace-nowrap font-mono text-[11px]">
                           {v !== null && v !== undefined ? String(v) : <span className="text-[#b8c1b9]">—</span>}
                         </td>

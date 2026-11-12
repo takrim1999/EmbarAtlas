@@ -1,11 +1,5 @@
 import React, { useMemo } from 'react';
-import { marked } from 'marked';
-
-// Configure marked options
-marked.setOptions({
-  gfm: true,
-  breaks: true,
-});
+import { renderMarkdown } from '../lib/markdown';
 
 function cleanLatexMath(text) {
   if (!text) return '';
@@ -35,7 +29,7 @@ export default function MarkdownRenderer({ content, className = '' }) {
   const html = useMemo(() => {
     if (!content) return '';
     const cleaned = cleanLatexMath(content);
-    return marked.parse(cleaned);
+    return renderMarkdown(cleaned);
   }, [content]);
 
   return (

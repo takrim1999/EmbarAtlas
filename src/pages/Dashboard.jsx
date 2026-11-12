@@ -64,7 +64,7 @@ export default function Dashboard() {
             <em className="not-italic text-[#b5d6b7]">Understand the fire.</em>
           </h1>
           <p className="text-xs text-[#b1c6bf] leading-relaxed max-w-md">
-            Explore NASA's microgravity combustion research with Super Intelligence (SI) powered analysis.
+            Explore NASA's microgravity combustion research with source-linked research assistance.
             Compare what was studied, why it matters, and what's still unknown.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function Dashboard() {
           </div>
           <div className="flex gap-2 items-center">
             <strong className="text-xs font-semibold text-[#d9e8c9]">{stats?.dataPoints || 0}</strong>
-            <span className="text-[10px] text-[#a9c0b7]">data points</span>
+            <span className="text-[10px] text-[#a9c0b7]">source-checked rows</span>
           </div>
           <div className="flex gap-2 items-center">
             <strong className="text-xs font-semibold text-[#d9e8c9]">{stats?.byTopic?.length || 0}</strong>
@@ -104,8 +104,8 @@ export default function Dashboard() {
         {[
           { to: '/explore', icon: Search, label: 'Explore Evidence', desc: 'Search and filter investigations', color: 'bg-[#126959]' },
           { to: '/compare', icon: GitCompareArrows, label: 'Compare Studies', desc: 'Side-by-side analysis', color: 'bg-[#4e768c]' },
-          { to: '/insights', icon: Brain, label: 'SI Insights', desc: 'SI-generated safety analysis', color: 'bg-[#9d7440]' },
-          { to: '/chat', icon: Flame, label: 'Ask SI', desc: 'Chat with research assistant', color: 'bg-[#df8656]' },
+          { to: '/insights', icon: Brain, label: 'Research Insights', desc: 'Source-linked research briefs', color: 'bg-[#9d7440]' },
+          { to: '/chat', icon: Flame, label: 'Ask AI', desc: 'Chat with research assistant', color: 'bg-[#df8656]' },
         ].map(({ to, icon: Icon, label, desc, color }) => (
           <Link
             key={to}
@@ -195,19 +195,19 @@ export default function Dashboard() {
             <div className="border-l-2 border-[#df8656] pl-3">
               <p className="text-xs font-semibold text-[#183235]">Oxygen Concentration</p>
               <p className="text-[11px] text-[#6c7c7d] leading-relaxed mt-0.5">
-                Lunar habitats expected at 30%+ O₂ (10.2 psi) — over 40% increase vs Earth's 21%, making materials significantly more flammable.
+                Compare oxygen concentration together with pressure, fuel, and apparatus. This catalog does not prescribe a habitat atmosphere.
               </p>
             </div>
             <div className="border-l-2 border-[#4e768c] pl-3">
               <p className="text-xs font-semibold text-[#183235]">Microgravity Effects</p>
               <p className="text-[11px] text-[#6c7c7d] leading-relaxed mt-0.5">
-                Absence of buoyant flow turns flickering teardrop flames into spherical, diffusion-controlled blue flames with low radiant loss.
+                Reduced buoyancy changes transport. Flame shape and behavior still depend on fuel, forced flow, and experimental geometry.
               </p>
             </div>
             <div className="border-l-2 border-[#126959] pl-3">
               <p className="text-xs font-semibold text-[#183235]">Partial Gravity Gap</p>
               <p className="text-[11px] text-[#6c7c7d] leading-relaxed mt-0.5">
-                No lunar (1/6g) or Martian (3/8g) data in PSI yet. Future tests (LUCI, FM2) will bridge the 0g to 1g envelope.
+                This curated sample contains microgravity studies. It cannot validate lunar or Martian fire behavior; consult dedicated partial-gravity research.
               </p>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4">
           <div>
             <p className="text-[9px] tracking-[1.5px] text-[#6c7c7d] font-bold mb-0.5 uppercase">PRIORITY INVESTIGATIONS</p>
-            <h2 className="text-base font-semibold">Highest Safety Relevance</h2>
+            <h2 className="text-base font-semibold">Editorial Research Priorities</h2>
           </div>
           <Link to="/explore" className="text-xs text-[#126959] font-medium no-underline flex items-center gap-1 hover:underline">
             View all ({stats?.total || 0}) <ArrowRight size={13} />
@@ -238,7 +238,7 @@ export default function Dashboard() {
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
                       <h3 className="text-sm font-semibold group-hover:text-[#126959] transition-colors">{inv.name}</h3>
-                      <p className="text-[9px] text-[#8c9a90] mt-0.5 font-mono">{inv.id} · NASA PSI</p>
+                      <p className="text-[9px] text-[#8c9a90] mt-0.5 font-mono">{inv.id} · NASA source</p>
                     </div>
                     <span className={`text-[8px] uppercase tracking-wider rounded px-2 py-0.5 shrink-0 font-medium ${
                       inv.topic === 'prevention' ? 'bg-[#e9f0e2] text-[#59774d]' :
@@ -258,7 +258,7 @@ export default function Dashboard() {
                   </div>
                   {inv.safety_relevance_score > 0 && (
                     <span className="text-[#126959] font-medium shrink-0 font-mono">
-                      ★ {inv.safety_relevance_score}/10
+                      Editorial {inv.safety_relevance_score}/10
                     </span>
                   )}
                 </div>

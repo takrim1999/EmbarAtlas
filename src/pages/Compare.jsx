@@ -14,6 +14,8 @@ export default function Compare() {
   const [loading, setLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const generation = useRef(0);
+  const [summaryNotice, setSummaryNotice] = useState('');
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -54,9 +56,14 @@ export default function Compare() {
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
+    generation.current++;
+    setAiSummary('');
+    setSummaryNotice('');
+    setLoadingAi(false);
     if (selectedIds.length >= 2) {
       api.compareInvestigations(selectedIds)
-        .then(data => setComparison(data))
+        .then(data => { if (!cancelled) setComparison(data); })
         .catch(console.error);
       setSearchParams({ ids: selectedIds.join(',') });
     } else {
@@ -67,6 +74,7 @@ export default function Compare() {
         setSearchParams({});
       }
     }
+    return () => { cancelled = true; };
   }, [selectedIds]);
 
   function addId(id) {
@@ -82,15 +90,20 @@ export default function Compare() {
 
   async function generateAiComparison() {
     if (selectedIds.length < 2) return;
+    const requestId = ++generation.current;
     setLoadingAi(true);
     setAiSummary('');
     try {
       const data = await api.summarize(selectedIds);
+      if (requestId !== generation.current) return;
       setAiSummary(data.summary || 'No summary returned.');
+      setSummaryNotice(data.notice || 'AI interpretation; review the sources.');
     } catch (err) {
-      setAiSummary('Failed to generate SI comparison. Check GEMINI_API_KEY configuration.');
+      if (requestId !== generation.current) return;
+      setAiSummary('The assistant could not complete this comparison. Please retry. The source comparison table above remains available.');
+      setSummaryNotice('Service unavailable; no answer generated.');
     } finally {
-      setLoadingAi(false);
+      if (requestId === generation.current) setLoadingAi(false);
     }
   }
 
@@ -213,7 +226,7 @@ export default function Compare() {
                             {inv.topic.replace(/_/g, ' ')}
                           </span>
                         </div>
-                        <p className="text-[10px] text-[#8c9a90] font-mono mt-0.5">{inv.id} · NASA PSI</p>
+                        <p className="text-[10px] text-[#8c9a90] font-mono mt-0.5">{inv.id} · NASA source</p>
                       </th>
                     ))}
                   </tr>
@@ -266,7 +279,7 @@ export default function Compare() {
                           rel="noopener noreferrer"
                           className="text-xs text-[#126959] no-underline hover:underline flex items-center gap-1 font-medium"
                         >
-                          NASA PSI Record ({inv.id}) <ExternalLink size={11} />
+                          NASA source ({inv.id}) <ExternalLink size={11} />
                         </a>
                         {inv.doi && <span className="block text-[10px] text-[#8c9a90] font-mono mt-0.5">DOI: {inv.doi}</span>}
                       </td>
@@ -281,12 +294,12 @@ export default function Compare() {
             <strong>Evidence Boundary Note:</strong> This compares investigation metadata and objectives. Microgravity results (0g) cannot be directly substituted for Moon (1/6g) or Mars (3/8g) gravitational acceleration without validated partial-gravity testing (e.g. future LUCI, FM2).
           </div>
 
-          {/* SI Comparison Analysis */}
+          {/* Research Comparison Analysis */}
           <div className="bg-white border border-[#dce2db] rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
               <div>
                 <p className="text-[9px] tracking-[1.5px] text-[#6c7c7d] font-bold uppercase mb-0.5">SUPER INTELLIGENCE (SI) ENGINE</p>
-                <h2 className="text-lg font-semibold text-[#183235]">SI Synthesis & Contrast Analysis</h2>
+                <h2 className="text-lg font-semibold text-[#183235]">Research Brief & Contrast Analysis</h2>
               </div>
               <button
                 type="button"
@@ -295,17 +308,18 @@ export default function Compare() {
                 className="bg-[#126959] text-white rounded px-4 py-2 text-xs font-medium hover:bg-[#126959]/90 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
               >
                 <Sparkles size={14} />
-                {loadingAi ? 'Synthesizing with SI Cascade…' : 'Generate SI Synthesis'}
+                {loadingAi ? 'Reviewing source evidence…' : 'Generate research brief'}
               </button>
             </div>
             
             {aiSummary ? (
               <div className="bg-[#fbfdfa] p-5 rounded-lg border border-[#e2e7df]">
+                <p role="status" className="text-xs mb-4 text-[#69734f]">{summaryNotice}</p>
                 <MarkdownRenderer content={aiSummary} />
               </div>
             ) : (
               <p className="text-xs text-[#6c7c7d] py-3">
-                Click <strong>"Generate SI Synthesis"</strong> to instruct the Super Intelligence engine to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
+                Click <strong>"Generate research brief"</strong> to instruct the AI research assistant engine to cross-examine these {selectedIds.length} investigations for complementary findings, opposing limitations, and implications for human spaceflight fire safety.
               </p>
             )}
           </div>

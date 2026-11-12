@@ -1,41 +1,59 @@
-# AI usage and source register
+# AI use and source provenance
 
-## AI disclosure — current prototype
+Reviewed: November 13, 2026. Corpus version: `2026-11-13-reviewed`.
 
-Codex was used on November 6, 2026 to research the challenge and supplied manual, propose a product scope, write application code and tests, draft source summaries, and create planning documents. The user requested help understanding Flame in Freefall, choosing a product, and preparing for the November 12–13 deadline window with three coders and two presenters.
+## Runtime AI architecture and boundaries
 
-AI operated on the linked challenge, the participant guide, public NASA PSI records, and the local workspace. Both supplied links were subsequently opened in a real browser; the challenge's rendered Details and Resources tabs and the manual's video requirement tables and pitch graphics were inspected. Earlier retrieval used search and a direct Google Docs text export.
+Runtime generation uses Google's Gemini REST API with configurable model names (`gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`). Each request sends selected public NASA metadata, the user's question, and recent conversation turns. No API keys are sent to the frontend. Every turn includes current evidence; old model responses are not treated as sources. Invalid or absent citation IDs, timeouts, missing credentials, blocked responses, or provider failures return a deterministic source brief with an explicit label. A source brief is not a generated scientific answer.
 
-All scientific summaries still need team review against the original sources. No team member has yet been represented as having completed that review. No private user files were added to the corpus.
+Citation membership checks verify that bracketed IDs belong to the supplied evidence selection; they cannot establish factual accuracy or scientific entailment. The system prompt separates objectives, methods, observations, and limitations, and rendered Markdown is sanitized with `sanitize-html`. Review all AI interpretations against the primary NASA source.
 
-The browser application has **no model API calls**. Its search is keyword/theme ranking; its brief is assembled from fixed summaries. The product should not be pitched as a working AI dashboard until the planned inference layer is implemented and evaluated.
+## Five detailed metadata records
 
-For each later model call, record the provider/model, purpose, prompt version, input source IDs, output, reviewer, and corrections. Also disclose AI-assisted development separately from AI features in the application.
+| ID | Investigation | DOI | Reviewed scope |
+|---|---|---|---|
+| PSI-25 | BASS-II | 10.60555/4qc4-de67 | Objectives and metadata; no imported run-level results |
+| PSI-98 | Saffire-I | 10.60555/0t15-1z43 | Objectives and approach; no imported run-level results |
+| PSI-102 | SAME | 10.60555/gd4k-8h62 | Objectives and approach; particle-size hypotheses are not reported findings |
+| PSI-101 | SAME-R | 10.60555/2np7-jv14 | Objectives and approach; source describes contamination of original SAME TEM grids |
+| PSI-69 | FLEX | 10.60555/mbq8-0451 | Objectives, approach, and version 5 experimental-table rows 1–5 |
 
-## Sources
+Primary record URLs are `https://psi.nasa.gov/physci/repo/data/investigations/` followed by the ID. The active corpus preserves the distinction between investigation objectives and experimental findings.
 
-| Source | Use in this prototype |
-| --- | --- |
-| [Flame in Freefall](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/) | Scope, target users, scientific boundaries |
-| [Challenge Resources](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/?tab=resources) | Resource-release status checked November 6 |
-| [Bangladesh participant guide](https://docs.google.com/document/d/1mSOxplyht5kii8GcCnFaGA-vMHIAVypjl4N6PobnaYQ/edit?tab=t.0) | Local deliverables and provisional timetable |
-| [Official 2026 event](https://www.spaceappschallenge.org/2026/) | Global timeline cross-check |
-| [BASS-II / PSI-25](https://psi.nasa.gov/physci/repo/data/investigations/PSI-25) | Objectives metadata; DOI 10.60555/4qc4-de67 |
-| [Saffire-I / PSI-98](https://psi.nasa.gov/physci/repo/data/investigations/PSI-98) | Objectives/approach metadata; DOI 10.60555/0t15-1z43 |
-| [SAME / PSI-102](https://psi.nasa.gov/physci/repo/data/investigations/PSI-102) | Objectives/approach metadata; DOI 10.60555/gd4k-8h62 |
-| [SAME-R / PSI-101](https://psi.nasa.gov/physci/repo/data/investigations/PSI-101) | Objectives/approach metadata; DOI 10.60555/2np7-jv14 |
-| [FLEX / PSI-69](https://psi.nasa.gov/physci/repo/data/investigations/PSI-69) | Objectives and displayed experimental-table rows 1–5; DOI 10.60555/mbq8-0451 |
+## Numerical sample, checked November 13
 
-Access/review date: November 6, 2026. Record page/section references more precisely when importing reports. The current PSI record summaries were retrieved through web search; numeric FLEX values were transcribed from its rendered search representation of the experimental table. They have not been independently checked against a downloaded original table.
+Source: [NASA PSI-69](https://psi.nasa.gov/physci/repo/data/investigations/PSI-69), version 5, Experimental Table, first page (rows 1–5 of 275 displayed tests). Original identifiers and selected units are retained.
 
-## Transformations
+| FLEX Test # | Identifier | Fuel | Pressure (mmHg) | Initial O₂ mole fraction | Initial diameter (mm) | Visible-flame extinction diameter (mm) | Burn time (s) | Test end |
+|---|---|---|---:|---:|---:|---:|---:|---|
+| 1 | 20CAL08 | Methanol | 757.7 | 0.21 | 1.69 | 0.89 | 4.3 | Disruption |
+| 2 | 20CAL10 | Methanol | 762 | 0.21 | 1.86 | 0.94 | 5 | Extinction |
+| 3 | 20CAL12 | Methanol | 764.2 | 0.21 | 1.61 | 0.92 | 3.2 | Extinction |
+| 4 | 30CAL02 | Methanol | 760 | 0.21 | 2.06 | missing | 7.64 | Extinction |
+| 5 | 30CAL03 | Methanol | 760 | 0.21 | 1.92 | 0.81 | 6.34 | Extinction |
 
-- Source descriptions were paraphrased into short metadata cards.
-- Prevention/detection/suppression and fuel tags are team-curated navigation labels.
-- Rank is a transparent theme/keyword rule, not a NASA ranking.
-- FLEX field labels were normalized into JavaScript property names, while units and test IDs were retained.
-- Empty extinction diameter for 30CAL02 became `null`; CSV writes an empty field and the UI displays a dash.
-- The ambiguous displayed “burning rate” field was omitted rather than guessing its unit.
-- No fitted curve, simulation, learned scientific model, or uncertainty estimate was introduced.
+The source's blank extinction diameter for `30CAL02` is stored as `null`, not zero. The adjacent `0.6` belongs to the burning-rate column, which is not imported. Every active row includes `source_url`, `source_doi`, `source_location`, `verified_at`, and `evidence_status`. Exported files retain those fields.
 
-Original code and vector/CSS artwork were created for this project. Typography uses DM Sans and Manrope via Google Fonts. Additional images, report figures, or publications require their own attribution and license review if incorporated later.
+Do not compare unlike tests as a controlled study. These five rows do not isolate pressure effects, establish a limiting oxygen index, or certify solid-material behavior. No partial-gravity numerical observations are included.
+
+## Other discovery entries
+
+These 14 entries are marked `overview_only`. Detailed numeric conditions, flight dates, outcomes, and technology-transfer claims without direct source verification are excluded.
+
+- **BASS, DAFT, SPICE, SLICE:** [NASA Glenn combustion overview](https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/).
+- **FLEX-2 and BRE:** [NASA: Studying Combustion and Fire Safety](https://www.nasa.gov/missions/station/iss-research/studying-combustion-and-fire-safety/).
+- **E-FIELD Flames, CFI-G, CLD Flame:** [NASA: Space Station’s Quest for the Secrets of Fire](https://www.nasa.gov/humans-in-space/space-stations-quest-for-the-secrets-of-fire/).
+- **Saffire-II, Saffire-III, CFI, s-Flame, DAFT-2:** [NASA PSI investigations by research area](https://www.nasa.gov/physical-sciences-informatics-psi/psi-investigations-by-research-area/).
+
+App IDs such as `ACME-BRE` and `DAFT` are navigation identifiers, not NASA-issued PSI IDs.
+
+## Scope corrections
+
+- `DAFT`/`DAFT-2` refer to **Dust and Aerosol Measurement Feasibility Test**, not droplet combustion. DAFT supports particle-instrument feasibility for SAME.
+- `s-Flame` refers to **Structure and Response of Spherical Diffusion Flames**, not Structure and Liftoff in Flames.
+- `BRE` burns gaseous fuel to emulate material flammability; it is not a liquid-droplet experiment.
+- Unverified `ACME-COFLOW` and unreviewed `LUCI`/`FM2` entries are excluded from the active corpus.
+
+## Interpretation and licensing
+
+Scores are editorial (`8` for prevention/detection/suppression topics and `6` for foundational combustion topics). They are not calibrated, measured, or NASA-assigned safety scores. The five linked PSI records list `CC0-1.0`; other NASA sources retain their applicable terms.

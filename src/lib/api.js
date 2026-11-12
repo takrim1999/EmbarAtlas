@@ -5,6 +5,7 @@ const API_BASE = (typeof window !== 'undefined' && window.location.pathname.star
 async function request(path, options = {}) {
   const url = `${API_BASE}${path}`;
   const res = await fetch(url, {
+    signal: AbortSignal.timeout(42000),
     headers: { 'Content-Type': 'application/json', ...options.headers },
     ...options,
   });

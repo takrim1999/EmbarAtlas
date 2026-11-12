@@ -114,6 +114,8 @@ function createFallbackDb() {
             if (lower.includes('session_id = ?')) {
               res = res.filter(c => c.session_id === params[0]);
             }
+            if (lower.includes('order by id desc')) res.sort((a,b)=>b.id-a.id);
+            if (lower.includes('limit 12')) res=res.slice(0,12);
             return res;
           }
 

@@ -1,7 +1,11 @@
 # 🔥 Ember Atlas — Microgravity Fire Safety Research Dashboard
 > NASA Space Apps Challenge 2026: **Flame in Freefall**
 
-Ember Atlas is an interactive, Super Intelligence (SI) powered dashboard that summarizes, ranks, and interprets NASA microgravity combustion research from the Physical Science Informatics (PSI) database to deliver critical fire safety insights for human space exploration.
+- **Live Dashboard:** [https://emberatlas.vercel.app/](https://emberatlas.vercel.app/)
+- **Challenge:** [Flame in Freefall](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/)
+- **Source & Provenance Register:** [docs/AI-AND-SOURCES.md](docs/AI-AND-SOURCES.md)
+
+Ember Atlas helps students and researchers find, compare, and inspect NASA microgravity fire research. It combines a searchable evidence catalog, source-linked briefs, side-by-side study comparison, a traceable numerical explorer, and a grounded AI research assistant.
 
 ![Ember Atlas Preview](ember-atlas-preview.jpg)
 
@@ -9,104 +13,68 @@ Ember Atlas is an interactive, Super Intelligence (SI) powered dashboard that su
 
 ## 🚀 Key Features
 
-### 1. 🔍 Comprehensive Evidence Library (22 Investigations)
-- Complete index of NASA microgravity combustion experiments across ISS racks (**CIR/ACME**, **CIR/MDCA**, **MSG**) and uncrewed orbital spacecraft (**Saffire I–III**).
-- Covers **solid fuels**, **liquid droplets**, **gaseous diffusion flames**, and **smoke/aerosol dynamics**.
-- Includes planned partial-gravity studies (**LUCI**, **FM2**) addressing the Moon (1/6g) and Mars (3/8g) data gaps.
+### 1. 🔍 Reviewed Evidence Library (19 Investigations)
+- Covers **5 detailed NASA Physical Sciences Informatics (PSI) briefs** (`BASS-II`, `Saffire-I`, `SAME`, `SAME-R`, `FLEX`) with DOIs, experimental conditions, and explicit scope boundaries, plus **14 discovery catalog entries** across ISS facilities (**CIR/ACME**, **CIR/MDCA**, **MSG**) and uncrewed spacecraft (**Saffire I–III**).
+- Filter by fire-safety topic (`prevention`, `detection`, `suppression`, `combustion_science`), fuel geometry (`solid`, `liquid`, `gas`, `smoke`), or hardware.
+- Distinguishes `source_checked`, `metadata_reviewed`, and `overview_only` records and labels editorial relevance scores clearly as browsing aids rather than NASA safety ratings.
 
-### 2. 🤖 Grounded Super Intelligence (SI) Engine (Gemma 4 31B & Gemini Flash Lite)
-- **Natural Language Research Assistant:** Ask deep scientific questions grounded strictly in NASA PSI data.
-- **Strict Evidence Citation:** Every claim cites investigation IDs (e.g. `[PSI-25]`, `[PSI-98]`, `[PSI-102]`).
-- **Claim Boundaries:** Clearly distinguishes between research hypotheses, experimental methods, observed results, and unknowns.
-- **Intelligent Synthesis:** Auto-summarizes single studies or contrasts multi-study investigations using multi-model reasoning.
+### 2. 🤖 Grounded AI Research Assistant (`gemini-3.5-flash-lite` & `gemini-3.1-flash-lite`)
+- **Multi-Turn Evidence Grounding:** Attaches curated NASA evidence records on every conversation turn rather than relying on prior model turns as a source.
+- **Structured Claim Boundaries:** Separates *Objectives*, *Methods*, *Observations*, and *Limitations*, and validates that bracketed source citations (`[PSI-25]`, `[PSI-69]`, `[PSI-98]`, `[PSI-101]`, `[PSI-102]`) belong to the supplied evidence scope.
+- **Deterministic Source-Brief Fallback:** When live AI generation is unconfigured, times out, or produces out-of-scope citations, endpoints return a clearly labeled deterministic source brief rather than fabricated claims.
 
-### 3. 📊 Interactive Experimental Data Explorer
-- Real tabular test logs transcribed from NASA PSI (burn durations, initial/extinction droplet diameters, ambient pressures, flame spread rates).
-- Interactive Recharts bar/trend visualizations colored by test endings (*Extinction*, *Disruption*, *Quenched*).
-- One-click **CSV** and **JSON** data export.
+### 3. 📊 Source-Checked Numerical Data Explorer
+- Imports **5 cell-checked methanol droplet tests** (`20CAL08`, `20CAL10`, `20CAL12`, `30CAL02`, `30CAL03`) from the NASA `PSI-69` (FLEX) Version 5 Experimental Table (rows 1–5).
+- Retains each row's original FLEX test identifier, DOI, source URL, table location, and review date, preserving blank source cells (such as `30CAL02`'s missing visible-flame extinction diameter) as `null`.
+- Supports one-click **CSV** and **JSON** export with full provenance metadata and spreadsheet formula-prefix escaping.
 
 ### 4. ⚖️ Side-by-Side Study Comparison
-- Compare up to 3 investigations across 8 scientific dimensions: objectives, fuel geometry, atmosphere/oxygen mole fraction, hardware insert, facility, diagnostics, and interpretation limits.
-- One-click SI cross-examination highlighting complementary insights and divergent test protocols.
-
-### 5. 🛡️ Mission-Specific Fire Safety Synthesis
-- **Lunar Outposts & Pressurized Rovers:** Analyzes flammability risks in elevated oxygen (≥30% O₂ at 10.2 psi).
-- **Orbital Spacecraft & Space Stations:** Examines ventilation-driven flame spread and large-scale solid burning.
-- **Long-Duration Mars Missions:** Dust-tolerant smoke detection and suppressant logistics.
-- **Terrestrial Spin-offs:** Fine-water-mist fire extinguishers, lightweight firefighter breathing apparatus (SCBA), and industrial particulate monitoring.
+- Compare 2 to 3 investigations across topic, fuel type, hardware, facility, gravity regime, conditions, measurements, limitations, and evidence status, paired with optional grounded AI synthesis.
 
 ---
 
 ## 🛠️ Technology Stack
 
-- **Frontend:** React 19, Vite 6, TailwindCSS v4, Recharts, Lucide React, React Router v7
-- **Backend:** Node.js, Express 5, Better-SQLite3
-- **Super Intelligence (SI) Engine:** Multi-model cascade (`gemma-4-31b-it` for deep reasoning, `gemini-3.5-flash-lite` and `gemini-3.1-flash-lite-preview` for rapid responses & fallback) via `@google/generative-ai`
-- **Portability:** Dual-mode database (SQLite locally + zero-dependency in-memory dataset adapter for serverless runtimes)
-- **Deployment:** Vercel ready (`vercel.json`, `api/index.js`), Railway/Docker/Node ready
+- **Frontend:** React 19, Vite 6, TailwindCSS v4, Recharts, Lucide React, React Router v7, `marked` + `sanitize-html`
+- **Backend:** Node.js (20–22), Express 5, optional `better-sqlite3` with process-local conversation fallback
+- **Corpus Authority:** `server/data/dataset.json` (`2026-11-13-reviewed`) serves as the authoritative read-only research catalog across both SQLite and serverless deployments
+- **AI Integration:** Google Gemini REST API (`gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`) with 18s per-model timeouts and server-side API key isolation
 
 ---
 
 ## 💻 Quick Start (Run Locally)
 
 ### Prerequisites
-- Node.js 18+ (tested on Node v22)
-- A Google Gemini API key (already configured in `.env`, or get your own free at [aistudio.google.com](https://aistudio.google.com))
+- Node.js 22 (supported range: Node 20–22)
+- Optional: A Google Gemini API key (`GEMINI_API_KEY`)
 
-### 1. Install dependencies
 ```bash
-npm install
-```
-
-### 2. Seed database
-```bash
-npm run seed
-```
-
-### 3. Start development servers
-Runs the Express API on port `3001` and Vite client on port `5173` concurrently:
-```bash
-npm run dev
-```
-Open **[http://localhost:5173](http://localhost:5173)** in your browser!
-
-### 4. Production standalone mode
-```bash
+npm ci
+cp .env.example .env
+# Optionally set GEMINI_API_KEY in .env
 npm run build
 npm start
 ```
-Open **[http://localhost:3001](http://localhost:3001)**.
 
----
+Open `http://localhost:3001/nasa/` (or run `npm run dev` for Vite development at `http://localhost:5173/nasa/` with the Express API on port `3001`). Without an AI key, all catalog browsing, comparisons, charts, exports, and deterministic source briefs work out of the box.
 
-## 🌐 Deploy to Vercel (1-Click)
+### Validate
+```bash
+npm test
+npm run build
+```
 
-The repository is pre-configured for Vercel:
-
-1. Push this project to GitHub:
-   ```bash
-   git add .
-   git commit -m "Ember Atlas v2.0 fullstack release"
-   git push origin main
-   ```
-2. In the [Vercel Dashboard](https://vercel.com/new):
-   - Import your GitHub repository.
-   - Framework Preset: **Vite**.
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-3. Add Environment Variable:
-   - `GEMINI_API_KEY`: Your Google Gemini API key
-4. Click **Deploy**!
+The automated test suite (`tests/regressions.test.js`) verifies test-level provenance, exclusion of legacy database rows, multiword hardware search, read-only public import locks (`403`), CSV/JSON provenance export, request validation, HTML sanitization, multi-turn evidence injection, citation validation, timeout handling, and UUIDv4 chat sessions.
 
 ---
 
 ## 🔬 Evidence Boundary & Scientific Integrity
 
-- **Microgravity ≠ Partial Gravity:** The PSI database contains flight data from microgravity (~0g). These results bound behavior but do not validate flame spread under lunar (1/6g) or Martian (3/8g) gravity without dedicated partial-gravity testing (e.g. LUCI, FM2).
-- **Transparent Provenance:** Every study card links directly to its primary record in the NASA Physical Science Informatics archive and includes registered DOI citations.
+- **Microgravity ≠ Partial Gravity:** Microgravity (~0g) combustion records do not establish lunar (1/6g) or Martian (3/8g) flammability limits or certify habitat atmospheric designs.
+- **Transparent Provenance:** See [docs/AI-AND-SOURCES.md](docs/AI-AND-SOURCES.md) for the complete source register, cell-level FLEX table verification, and scope corrections.
 
 ---
 
 ## 📜 License & Attribution
-- NASA PSI data is in the public domain (CC0-1.0).
-- Built for the NASA Space Apps Challenge 2026.
+- NASA supplies the primary scientific sources; the five detailed PSI records state `CC0-1.0`, while other NASA overview pages retain their applicable terms.
+- Code is licensed under [LICENSE](LICENSE).

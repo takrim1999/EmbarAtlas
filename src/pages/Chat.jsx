@@ -12,7 +12,7 @@ const SUGGESTED = [
   'What are cool flames and why do they pose a hidden risk in space?',
   'What fire suppression methods were tested in the FLEX experiments?',
   'How does low ventilation airflow affect flame spread in microgravity?',
-  'What terrestrial firefighting technology was derived from this NASA research?',
+  'What evidence is missing before applying these studies on Earth?',
 ];
 
 export default function Chat() {
@@ -46,16 +46,15 @@ export default function Chat() {
         role: 'assistant',
         content: data.response,
         citations: data.citedInvestigations || [],
+        notice: data.notice,
       }]);
     } catch (err) {
       console.error('Chat error:', err);
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: `I couldn't reach the SI service directly (${err.message || 'Check GEMINI_API_KEY in .env'}).
-
-**Knowledge Baseline for your query:**
-In microgravity, buoyancy is absent, eliminating natural convection. Flames form diffusion-controlled spherical envelopes. Solid combustion investigations like **BASS-II [PSI-25]** and large-scale **Saffire [PSI-98]** show that slow ventilation (forced flow) drives sustained flame spread, while elevated oxygen concentrations (≥30% expected in lunar habitats) drastically lower ignition energy and raise burning rates. For smoke detection, **SAME [PSI-102]** and **SAME-R [PSI-101]** show larger particle agglomeration in microgravity.`,
-        citations: contextId ? [contextId] : ['PSI-25', 'PSI-98', 'PSI-102'],
+        content: `The research assistant could not complete this request. ${err.name === 'TimeoutError' ? 'The request timed out.' : 'Please retry or browse the evidence catalog.'} No answer was generated.`,
+        citations: [],
+        notice: 'Service unavailable',
       }]);
     } finally {
       setLoading(false);
@@ -73,7 +72,7 @@ In microgravity, buoyancy is absent, eliminating natural convection. Flames form
       {/* Top Header */}
       <div className="flex items-center justify-between mb-3 shrink-0">
         <div>
-          <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-0.5 uppercase">SI RESEARCH ASSISTANT</p>
+          <p className="text-[9px] tracking-[1.8px] font-bold text-[#6c7c7d] mb-0.5 uppercase">AI RESEARCH ASSISTANT</p>
           <h1 className="text-2xl font-medium tracking-tight">
             Consult the Microgravity Fire Evidence
           </h1>
@@ -101,9 +100,9 @@ In microgravity, buoyancy is absent, eliminating natural convection. Flames form
             <div className="w-14 h-14 bg-[#eaf0e6] rounded-2xl flex items-center justify-center mx-auto mb-3">
               <Flame size={26} className="text-[#df8656]" />
             </div>
-            <h2 className="text-lg font-semibold mb-1 text-[#183235]">Ember Atlas Super Intelligence</h2>
+            <h2 className="text-lg font-semibold mb-1 text-[#183235]">Ember Atlas Research Assistant</h2>
             <p className="text-xs text-[#6c7c7d] max-w-md mx-auto leading-relaxed mb-6">
-              Ask deep questions about flame diffusion, smoke detection instruments, elevated oxygen risks, and suppression in space. Grounded strictly in NASA PSI investigations.
+              Ask deep questions about flame diffusion, smoke detection instruments, elevated oxygen risks, and suppression in space. Uses a curated NASA source catalog. AI interpretations can be wrong; inspect the cited evidence.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-2xl mx-auto">
@@ -141,7 +140,10 @@ In microgravity, buoyancy is absent, eliminating natural convection. Flames form
               {msg.role === 'user' ? (
                 <p>{msg.content}</p>
               ) : (
-                <MarkdownRenderer content={msg.content} />
+                <>
+                  {msg.notice && <p className="mb-3 text-[11px] text-[#69734f] bg-[#edf0df] rounded p-2" role="status">{msg.notice}</p>}
+                  <MarkdownRenderer content={msg.content} />
+                </>
               )}
               
               {msg.citations && msg.citations.length > 0 && (
@@ -188,6 +190,7 @@ In microgravity, buoyancy is absent, eliminating natural convection. Flames form
         <input
           ref={inputRef}
           type="text"
+          maxLength={3000}
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}

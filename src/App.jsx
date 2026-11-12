@@ -14,8 +14,8 @@ const navItems = [
   { to: '/explore', icon: Search, label: 'Explore' },
   { to: '/compare', icon: GitCompareArrows, label: 'Compare' },
   { to: '/data', icon: Database, label: 'Data Explorer' },
-  { to: '/insights', icon: Brain, label: 'SI Insights' },
-  { to: '/chat', icon: MessageCircle, label: 'SI Assistant' },
+  { to: '/insights', icon: Brain, label: 'Research Insights' },
+  { to: '/chat', icon: MessageCircle, label: 'AI Assistant' },
   { to: '/method', icon: BookOpen, label: 'Sources & Method' },
 ];
 
@@ -107,7 +107,7 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#749e78]" />
-            SI-Powered Dashboard
+            AI-assisted Dashboard
             <span className="border border-[#dce2db] bg-white rounded px-1.5 py-0.5 ml-1 text-[9px] font-mono">v2.0</span>
           </div>
         </header>
@@ -128,7 +128,7 @@ export default function App() {
         
         <footer className="flex flex-col sm:flex-row justify-between items-center gap-2 border-t border-[#dce2db] mx-4 lg:mx-8 py-4 text-[9px] text-[#899583] tracking-wide">
           <span>EMBER ATLAS <span className="mx-2">/</span> Evidence before inference.</span>
-          <span>NASA PSI sources · Research prototype · 2026</span>
+          <span>NASA sources · Research prototype · 2026</span>
         </footer>
       </div>
     </div>
