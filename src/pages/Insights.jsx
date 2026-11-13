@@ -165,7 +165,7 @@ export default function Insights() {
       <div className="flex items-center justify-between flex-wrap gap-4 mb-6 bg-white p-4 rounded-lg border border-[#dce2db] shadow-2xs">
         <div className="flex items-center gap-2 text-xs text-[#526b59]">
           <Brain size={18} className="text-[#126959]" />
-          <span>Synthesizing evidence across 22 NASA investigations for <strong>{FOCUSES.find(f => f.key === focus)?.label}</strong></span>
+          <span>Synthesizing evidence across 19 NASA investigations for <strong>{FOCUSES.find(f => f.key === focus)?.label}</strong></span>
         </div>
         
         <button
