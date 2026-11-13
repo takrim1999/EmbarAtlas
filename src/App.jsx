@@ -138,9 +138,13 @@ export default function App() {
             <button
               type="button"
               onClick={() => setShowSplash(true)}
-              className="flex items-center gap-1.5 mr-2 px-2.5 py-1 rounded-md border border-[#dce2db] bg-white text-[#36514c] hover:border-[#df8656]/60 hover:text-[#183235] transition-colors"
+              className="flex items-center gap-2 mr-3 px-3.5 py-1.5 rounded-lg bg-[#183b3d] hover:bg-[#204c4e] text-white text-xs font-semibold shadow-xs hover:shadow-md border border-[#183b3d] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
-              <Orbit size={13} className="text-[#df8656]" /> Mission brief
+              <Orbit size={15} className="text-[#df8656] animate-pulse" />
+              <span>Mission brief</span>
+              <span className="hidden md:inline-block text-[9px] font-medium bg-white/15 text-[#d9e8c9] px-1.5 py-0.5 rounded">
+                Flame Lab
+              </span>
             </button>
             <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#749e78]" />
             <span className="hidden sm:inline">SI-powered Dashboard</span>

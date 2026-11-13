@@ -81,13 +81,13 @@ export default function SplashScreen({ onClose }) {
           <button
             type="button"
             onClick={onClose}
-            className="group flex items-center gap-2.5 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 active:bg-white/25 px-3.5 py-2 rounded-lg border border-white/30 hover:border-white/60 shadow-[0_0_12px_rgba(255,255,255,0.08)] hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] transition-all duration-200 cursor-pointer"
+            className="group flex items-center gap-3 text-sm font-bold text-white bg-gradient-to-r from-[#df8656] to-[#d66a3d] hover:from-[#e89467] hover:to-[#df8656] px-5 py-2.5 rounded-xl border border-[#ffb288]/40 shadow-[0_4px_20px_rgba(223,134,86,0.4)] hover:shadow-[0_6px_25px_rgba(223,134,86,0.6)] transform hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 cursor-pointer"
           >
             <span>Skip intro</span>
-            <kbd className="hidden sm:inline-block font-mono text-[10px] font-medium bg-black/40 text-[#c8ded8] border border-white/20 rounded px-1.5 py-0.5 shadow-inner">
+            <kbd className="hidden sm:inline-block font-mono text-[11px] font-bold bg-black/30 text-white/90 border border-white/30 rounded-md px-2 py-0.5">
               Esc
             </kbd>
-            <X size={15} strokeWidth={2.5} className="text-[#bacfca] group-hover:text-white transition-colors" />
+            <X size={17} strokeWidth={3} className="text-white group-hover:rotate-90 transition-transform duration-200" />
           </button>
         </header>
 
