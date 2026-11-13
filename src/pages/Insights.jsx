@@ -74,12 +74,15 @@ const CURATED_INSIGHTS = {
 - Dual-mode aerosol monitoring capable of distinguishing habitat dust from material pyrolysis smoke [DAFT, PSI-102].`,
 
   general: `### 1. Terrestrial Fire Safety Spin-Offs from NASA Research
-- **Fine Water-Mist Extinguishers:** Droplet extinction physics developed in FLEX [PSI-69, PSI-70] directly informed terrestrial fine-water-mist fire extinguishers used in data centers, historical archives, and aircraft, replacing ozone-depleting halons.
-- **Advanced Firefighter SCBA Gear:** Lightweight pressure vessels and heat-resistant polymers developed for Saffire and BASS [PSI-25, PSI-98] are now standard in structural firefighting suits and breathing equipment.
-- **Terrestrial Industrial Dust & Aerosol Detection:** Diagnostic instruments designed for SAME [PSI-102] and DAFT [DAFT] have transferred to commercial cleanroom air quality and coal-mine dust monitoring.
+- **Lightweight Firefighter Air Tanks ([NASA Spinoff #9582](https://spinoff.nasa.gov/node/9582)):** Spacesuit life-support pressure vessels and composite materials developed for NASA missions directly revolutionized structural firefighting breathing apparatus (SCBA), drastically cutting equipment weight and firefighter fatigue.
+- **Advanced Firefighter Thermal Attire ([NASA Spinoff #9918](https://spinoff.nasa.gov/node/9918)):** High-temperature flame-resistant fabrics and polybenzimidazole (PBI) polymers tested in NASA space flammability investigations (BASS [PSI-24], BASS-II [PSI-25]) were adapted directly into modern turnout gear for municipal firefighters.
+- **Industrial Smoke vs. Dust Discriminators ([NASA Spinoff #9407](https://spinoff.nasa.gov/node/9407)):** Particulate sizing optics developed for Space Shuttle and ISS fire detection (SAME [PSI-102], DAFT [DAFT]) transferred to commercial cleanrooms and coal-mining operations, eliminating false alarms while detecting toxic aerosols.
+- **Fine Water-Mist Suppressants:** Droplet extinction kinetics and radiative cooling insights from FLEX [PSI-69, PSI-70] informed terrestrial fine-water-mist fire suppression systems for data centers, historical archives, and aircraft, replacing ozone-depleting halons.
 
-### 2. Cross-Disciplinary Value
-- Microgravity provides a clean 1D or spherical spherical diffusion boundary without buoyant turbulence, validating fundamental chemical kinetics equations used worldwide in building fire code simulations.`
+### 2. Historical Spaceflight Lessons & PSI Lineage
+- **Apollo 1 (1967):** Pure oxygen environment flash fire proved that materials considered inert in air burn catastrophically under elevated oxidizer concentrations—a key warning for Artemis lunar bases (34% O₂).
+- **Mir Space Station Fire (1997):** An oxygen-generating candle ignition filled the station with dense toxic smoke, demonstrating the absence of buoyant smoke venting in microgravity.
+- **Cross-Disciplinary Value:** Microgravity provides pure 1D spherical diffusion boundaries without buoyant turbulence, creating the golden benchmark data used worldwide to calibrate building fire code models.`
 };
 
 export default function Insights() {

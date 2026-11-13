@@ -40,6 +40,111 @@ export default function Method() {
         </div>
       </div>
     </div>
+
+    {/* NASA Challenge Resources, Historical Precedents & Terrestrial Spinoffs */}
+    <div className="bg-white border border-[#dce2db] rounded-lg p-6 mb-6 shadow-2xs">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-semibold text-[#183235]">NASA Challenge Resources & Lineage</h2>
+        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-[#eaf0e6] text-[#41604e] font-semibold">
+          Challenge Verified
+        </span>
+      </div>
+      <p className="text-xs text-[#6c7c7d] mb-4 leading-relaxed">
+        Ember Atlas grounds its synthesis and catalog in official NASA combustion science repositories, historical flight incident lessons, and validated terrestrial spinoffs.
+      </p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        {/* Core Repositories */}
+        <div className="bg-[#fafbf8] p-4 rounded border border-[#e4e9df] flex flex-col justify-between">
+          <div>
+            <span className="text-[9px] font-bold tracking-wider text-[#126959] uppercase block mb-1">Foundational Archives</span>
+            <h3 className="font-semibold text-[#183235] mb-2">NASA PSI & Combustion Science</h3>
+            <ul className="space-y-1.5 text-[11px] text-[#51675b]">
+              <li>
+                <a href="https://psi.nasa.gov/physci/repo/search?q=combustion" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  PSI Data Repository: Combustion <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">Primary physical sciences experimental data repository.</span>
+              </li>
+              <li>
+                <a href="https://www.nasa.gov/glenn/glenn-expertise-space-exploration/physical-sciences-program/combustion-science/" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  NASA Glenn Combustion Science <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">Overview of ISS combustion facilities and science teams.</span>
+              </li>
+              <li>
+                <a href="https://www.nasa.gov/missions/station/a-researchers-guide-to-combustion-science/" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  A Researcher's Guide to ISS Combustion <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">50+ page review of ISS combustion experiments.</span>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/watch?v=W1oXykoz9zg" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  NASA ScienceCasts: Combustion on ISS <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">Visual guide to microgravity spherical flames.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Historical Precedents */}
+        <div className="bg-[#fafbf8] p-4 rounded border border-[#e4e9df] flex flex-col justify-between">
+          <div>
+            <span className="text-[9px] font-bold tracking-wider text-[#b45309] uppercase block mb-1">Safety Precedents</span>
+            <h3 className="font-semibold text-[#183235] mb-2">Historical Spaceflight Lessons</h3>
+            <ul className="space-y-1.5 text-[11px] text-[#51675b]">
+              <li>
+                <a href="https://sma.nasa.gov/sma-disciplines/accllp/apollo-1" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  Apollo 1 Crew Mission (1967) <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">100% O₂ cabin flash fire; sparked modern flammability testing.</span>
+              </li>
+              <li>
+                <a href="https://sma.nasa.gov/sma-disciplines/accllp/apollo-13" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  Apollo 13 Oxygen Tank Investigation <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">High-pressure supercritical oxygen wire insulation failure.</span>
+              </li>
+              <li>
+                <a href="https://www.nasa.gov/history/25-years-ago-fire-aboard-space-station-mir/" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  Mir Space Station Fire (1997) <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">Solid oxygen generator fire; demonstrated microgravity smoke trapping.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Terrestrial Spinoffs */}
+        <div className="bg-[#fafbf8] p-4 rounded border border-[#e4e9df] flex flex-col justify-between">
+          <div>
+            <span className="text-[9px] font-bold tracking-wider text-[#0e7490] uppercase block mb-1">Earth Applications</span>
+            <h3 className="font-semibold text-[#183235] mb-2">NASA Fire Safety Spinoffs</h3>
+            <ul className="space-y-1.5 text-[11px] text-[#51675b]">
+              <li>
+                <a href="https://spinoff.nasa.gov/node/9582" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  Fireman's Air Tanks (#9582) <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">Spacesuit life-support composite tanks adapted for firefighters.</span>
+              </li>
+              <li>
+                <a href="https://spinoff.nasa.gov/node/9918" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  Advanced Fire Attire (#9918) <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">High-temperature PBI fabrics transferred to turnout suits.</span>
+              </li>
+              <li>
+                <a href="https://spinoff.nasa.gov/node/9407" target="_blank" rel="noopener noreferrer" className="text-[#126959] hover:underline flex items-center gap-1 font-medium">
+                  Smoke vs Dust Detector (#9407) <ExternalLink size={10} />
+                </a>
+                <span className="text-[10px] text-[#6c7c7d] block">Shuttle particulate sizing adapted to eliminate mining false alarms.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <section className="bg-white border border-[#dce2db] rounded-lg p-6 mb-6">
       <h2 className="text-lg font-semibold mb-2">Primary source register</h2>
       <p className="text-xs text-[#6c7c7d] mb-4">{investigations.length} entries. App identifiers beginning ACME, CFI, DAFT, SPICE or SLICE are navigation identifiers, not NASA-issued PSI IDs.</p>

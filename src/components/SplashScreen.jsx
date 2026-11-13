@@ -81,9 +81,13 @@ export default function SplashScreen({ onClose }) {
           <button
             type="button"
             onClick={onClose}
-            className="flex items-center gap-2 text-[11px] text-[#b2c5c1] hover:text-white px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/25 transition-colors"
+            className="group flex items-center gap-2.5 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 active:bg-white/25 px-3.5 py-2 rounded-lg border border-white/30 hover:border-white/60 shadow-[0_0_12px_rgba(255,255,255,0.08)] hover:shadow-[0_0_16px_rgba(255,255,255,0.2)] transition-all duration-200 cursor-pointer"
           >
-            Skip intro <kbd className="hidden sm:inline font-mono text-[9px] text-[#7f9a96]">Esc</kbd> <X size={14} />
+            <span>Skip intro</span>
+            <kbd className="hidden sm:inline-block font-mono text-[10px] font-medium bg-black/40 text-[#c8ded8] border border-white/20 rounded px-1.5 py-0.5 shadow-inner">
+              Esc
+            </kbd>
+            <X size={15} strokeWidth={2.5} className="text-[#bacfca] group-hover:text-white transition-colors" />
           </button>
         </header>
 

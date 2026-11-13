@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Wind } from 'lucide-react';
+import { Wind, Play, Pause } from 'lucide-react';
 
 // Recorded endpoints of FLEX test 30CAL03 (NASA PSI-69 v5, Experimental Table row 5).
 export const REFERENCE_TEST = { id: '30CAL03', d0: 1.92, dExt: 0.81, burnTime: 6.34, pressure: 760, oxygen: 0.21 };
@@ -294,22 +294,26 @@ function render(ctx, w, h, particles, env, drop) {
 export default function MicrogravityFlameLab() {
   const [gravity, setGravity] = useState('micro');
   const [airflow, setAirflow] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [telemetry, setTelemetry] = useState({ d: REFERENCE_TEST.d0, phase: 0, burning: true });
   const canvasRef = useRef(null);
   const wrapRef = useRef(null);
   const target = useRef({ g: 0, f: 0 });
-  const redraw = useRef(null);
+  const isPlayingRef = useRef(true);
 
   useEffect(() => {
     target.current = { g: gravity === 'earth' ? 1 : 0, f: airflow ? 1 : 0 };
-    redraw.current?.();
   }, [gravity, airflow]);
+
+  useEffect(() => {
+    isPlayingRef.current = isPlaying;
+  }, [isPlaying]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
+    if (!canvas || !wrap) return;
     const ctx = canvas.getContext('2d');
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const state = { g: target.current.g, f: target.current.f };
     let w = 0;
     let h = 0;
@@ -321,40 +325,35 @@ export default function MicrogravityFlameLab() {
     const envFor = drop => ({ g: state.g, f: state.f, time, rdN: 0.16 * (drop.d / REFERENCE_TEST.d0) / (0.62 + 0.38 * (drop.d / REFERENCE_TEST.d0)) });
     const particles = makeParticles(envFor(dropletAt(time)));
 
-    const drawStatic = () => {
-      state.g = target.current.g;
-      state.f = target.current.f;
-      time = 2.4;
-      const drop = dropletAt(time);
-      const env = envFor(drop);
-      particles.forEach(p => spawn(p, env, true));
-      for (let i = 0; i < 90; i++) step(particles, env, 1 / 30);
-      render(ctx, w, h, particles, env, drop);
-      setTelemetry({ d: drop.d, phase: drop.phase, burning: drop.burning });
-    };
-
     const resize = () => {
+      if (!wrap || !canvas) return;
       const rect = wrap.getBoundingClientRect();
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       w = rect.width;
       h = rect.height;
+      if (w === 0 || h === 0) return;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (reduced) drawStatic();
     };
 
     const frame = now => {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
-      time += dt;
+      if (isPlayingRef.current) {
+        time += dt;
+      }
       const ease = Math.min(1, dt * 3);
       state.g += (target.current.g - state.g) * ease;
       state.f += (target.current.f - state.f) * ease;
       const drop = dropletAt(time);
       const env = envFor(drop);
-      step(particles, env, dt);
-      render(ctx, w, h, particles, env, drop);
+      if (isPlayingRef.current) {
+        step(particles, env, dt);
+      }
+      if (w > 0 && h > 0) {
+        render(ctx, w, h, particles, env, drop);
+      }
       if (now - lastTelemetry > 100) {
         lastTelemetry = now;
         setTelemetry({ d: drop.d, phase: drop.phase, burning: drop.burning });
@@ -365,15 +364,11 @@ export default function MicrogravityFlameLab() {
     const observer = new ResizeObserver(resize);
     observer.observe(wrap);
     resize();
-    if (reduced) {
-      redraw.current = drawStatic;
-    } else {
-      raf = requestAnimationFrame(frame);
-    }
+    raf = requestAnimationFrame(frame);
+
     return () => {
       cancelAnimationFrame(raf);
       observer.disconnect();
-      redraw.current = null;
     };
   }, []);
 
@@ -396,15 +391,26 @@ export default function MicrogravityFlameLab() {
             </button>
           ))}
         </div>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={airflow}
-          onClick={() => setAirflow(v => !v)}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] border transition-colors ${airflow ? 'border-[#7ee8c8]/50 text-[#7ee8c8] bg-[#7ee8c8]/10' : 'border-white/10 text-[#b2c5c1] hover:text-white'}`}
-        >
-          <Wind size={14} /> Slow airflow
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setIsPlaying(p => !p)}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] border border-white/10 hover:border-white/25 text-[#b2c5c1] hover:text-white transition-colors"
+            title={isPlaying ? 'Pause simulation' : 'Play simulation'}
+          >
+            {isPlaying ? <Pause size={13} /> : <Play size={13} className="text-[#df8656]" />}
+            <span>{isPlaying ? 'Pause' : 'Play'}</span>
+          </button>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={airflow}
+            onClick={() => setAirflow(v => !v)}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[11px] border transition-colors ${airflow ? 'border-[#7ee8c8]/50 text-[#7ee8c8] bg-[#7ee8c8]/10' : 'border-white/10 text-[#b2c5c1] hover:text-white'}`}
+          >
+            <Wind size={14} /> Slow airflow
+          </button>
+        </div>
       </div>
 
       <div ref={wrapRef} className="relative h-[300px] sm:h-[360px] lg:h-[400px]">
