@@ -1,7 +1,7 @@
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
-import { Flame, Search, GitCompareArrows, Database, Brain, MessageCircle, BookOpen, BarChart3, Menu, X, Orbit } from 'lucide-react';
+import { Flame, Search, GitCompareArrows, Database, Brain, MessageCircle, BookOpen, BarChart3, Menu, X, Orbit, Github, ExternalLink } from 'lucide-react';
 import SplashScreen from './components/SplashScreen';
 import Dashboard from './pages/Dashboard';
 import Explore from './pages/Explore';
@@ -104,6 +104,19 @@ export default function App() {
             Small flames.<br />Important questions.
           </p>
           <a
+            href="https://github.com/takrim1999/EmbarAtlas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between text-[11px] text-[#bacfca] hover:text-white bg-white/5 hover:bg-white/10 px-3 py-2 rounded-lg border border-white/10 transition-colors mb-3"
+            title="Inspect source code on GitHub"
+          >
+            <span className="flex items-center gap-2">
+              <Github size={13} />
+              <span>View on GitHub</span>
+            </span>
+            <ExternalLink size={11} className="text-[#88a3a0]" />
+          </a>
+          <a
             href="https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/"
             target="_blank"
             rel="noopener noreferrer"
@@ -135,6 +148,17 @@ export default function App() {
             </span>
           </div>
           <div className="flex items-center gap-2 text-[10px] text-[#6c7c7d]">
+            <a
+              href="https://github.com/takrim1999/EmbarAtlas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-[#dce2db] bg-white hover:border-[#126959] text-[#243e37] hover:text-[#126959] text-[10px] font-medium shadow-2xs transition-colors"
+              title="View source code on GitHub"
+            >
+              <Github size={12} />
+              <span>GitHub</span>
+              <ExternalLink size={9} className="text-[#6c7c7d]" />
+            </a>
             <button
               type="button"
               onClick={() => setShowSplash(true)}
@@ -162,9 +186,20 @@ export default function App() {
           </Routes>
         </main>
         
-        <footer className="flex flex-col sm:flex-row justify-between items-center gap-2 border-t border-[#dce2db] mx-4 lg:mx-8 py-4 text-[9px] text-[#899583] tracking-wide">
+        <footer className="flex flex-col sm:flex-row justify-between items-center gap-2 border-t border-[#dce2db] mx-4 lg:mx-8 py-4 text-[10px] text-[#899583] tracking-wide">
           <span>EMBER ATLAS <span className="mx-2">/</span> Evidence before inference.</span>
-          <span>NASA sources · Research prototype · 2026</span>
+          <div className="flex items-center gap-3">
+            <a 
+              href="https://github.com/takrim1999/EmbarAtlas" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-[#126959] hover:underline flex items-center gap-1 font-medium"
+            >
+              <Github size={12} /> View Code on GitHub <ExternalLink size={10} />
+            </a>
+            <span>·</span>
+            <span>NASA Space Apps 2026</span>
+          </div>
         </footer>
       </div>
     </div>

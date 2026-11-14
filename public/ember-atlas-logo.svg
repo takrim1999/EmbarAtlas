@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 240" width="100%" height="100%">
+  <defs>
+    <!-- Flame Gradient -->
+    <linearGradient id="flameGradHoriz" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#ffab73"/>
+      <stop offset="35%" stop-color="#f0834e"/>
+      <stop offset="70%" stop-color="#df5c2c"/>
+      <stop offset="100%" stop-color="#b83818"/>
+    </linearGradient>
+
+    <!-- Droplet Gradient -->
+    <radialGradient id="dropletGradHoriz" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#e0f7f2"/>
+      <stop offset="45%" stop-color="#7ee8c8"/>
+      <stop offset="85%" stop-color="#3b968a"/>
+      <stop offset="100%" stop-color="#184e49"/>
+    </radialGradient>
+
+    <filter id="flameGlowHoriz" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Left Icon Mark -->
+  <g transform="translate(10, 0)">
+    <!-- Orbital Rings -->
+    <ellipse cx="110" cy="120" rx="95" ry="38" fill="none" stroke="rgba(126, 232, 200, 0.25)" stroke-width="1.5" transform="rotate(-24 110 120)"/>
+    <circle cx="110" cy="120" r="75" fill="none" stroke="rgba(255, 171, 115, 0.2)" stroke-width="1" stroke-dasharray="4 6"/>
+
+    <!-- Flame Body -->
+    <g filter="url(#flameGlowHoriz)">
+      <path d="M110 32 C122 72, 156 102, 156 142 A46 46 0 0 1 64 142 C64 116, 78 95, 94 75 C98 70, 101 59, 99 49 C99 44, 100 38, 110 32 Z" 
+            fill="url(#flameGradHoriz)"/>
+    </g>
+
+    <!-- Inner Flame Tongue -->
+    <path d="M110 70 C118 95, 138 116, 138 142 A28 28 0 0 1 82 142 C82 124, 92 110, 102 96 C105 91, 106 82, 105 76 Z" 
+          fill="#ffc599" opacity="0.65"/>
+
+    <!-- Microgravity Core Droplet -->
+    <circle cx="110" cy="148" r="20" fill="url(#dropletGradHoriz)"/>
+    <circle cx="110" cy="148" r="20" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.5"/>
+    <ellipse cx="104" cy="142" rx="5" ry="3" fill="#ffffff" opacity="0.9" transform="rotate(-25 104 142)"/>
+
+    <!-- Soot Orbit Ring -->
+    <ellipse cx="110" cy="148" rx="30" ry="10" fill="none" stroke="rgba(255, 200, 160, 0.5)" stroke-width="1.2" stroke-dasharray="3 3" transform="rotate(15 110 148)"/>
+  </g>
+
+  <!-- Typography -->
+  <g transform="translate(230, 0)">
+    <!-- Category Badge -->
+    <text x="0" y="58" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#df8656">
+      NASA SPACE APPS 2026 · FLAME IN FREEFALL
+    </text>
+
+    <!-- Brand Name (emberatlas) -->
+    <text x="0" y="136" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="76" letter-spacing="-1.5">
+      <tspan font-weight="800" fill="#ffffff">ember</tspan>
+      <tspan font-weight="400" fill="#b9ded6">atlas</tspan>
+    </text>
+
+    <!-- Subtitle / Tagline -->
+    <text x="0" y="176" font-family="'JetBrains Mono', 'Roboto Mono', 'SF Pro Text', Menlo, monospace" font-size="12" font-weight="600" letter-spacing="2.8" fill="#88a3a0">
+      MICROGRAVITY FIRE SAFETY INTELLIGENCE
+    </text>
+  </g>
+</svg>

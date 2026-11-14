@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { m } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Flame, Search, GitCompareArrows, MessageCircle, Database, ArrowRight, X, ShieldCheck } from 'lucide-react';
+import { Flame, Search, GitCompareArrows, MessageCircle, Database, ArrowRight, X, ShieldCheck, Github, ExternalLink } from 'lucide-react';
 import { api } from '../lib/api';
 import MicrogravityFlameLab from './MicrogravityFlameLab';
 
@@ -78,17 +78,30 @@ export default function SplashScreen({ onClose }) {
               NASA SPACE APPS 2026 · FLAME IN FREEFALL
             </span>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="group flex items-center gap-2 text-[11px] font-semibold text-white bg-gradient-to-r from-[#df8656] to-[#d66a3d] hover:from-[#e89467] hover:to-[#df8656] px-3 py-1.5 rounded-lg border border-[#ffb288]/30 shadow-[0_2px_12px_rgba(223,134,86,0.35)] transition-all cursor-pointer"
-          >
-            <span>Skip intro</span>
-            <kbd className="hidden sm:inline-block font-mono text-[9px] font-medium bg-black/30 text-white/90 border border-white/20 rounded px-1.5 py-0.5">
-              Esc
-            </kbd>
-            <X size={14} strokeWidth={2.5} className="text-white" />
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/takrim1999/EmbarAtlas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 text-[11px] font-medium text-[#bacfca] hover:text-white px-3 py-1.5 rounded-lg border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 transition-colors"
+              title="Inspect source code on GitHub"
+            >
+              <Github size={13} />
+              <span>GitHub</span>
+              <ExternalLink size={10} className="text-[#8ca39f]" />
+            </a>
+            <button
+              type="button"
+              onClick={onClose}
+              className="group flex items-center gap-2 text-[11px] font-semibold text-white bg-gradient-to-r from-[#df8656] to-[#d66a3d] hover:from-[#e89467] hover:to-[#df8656] px-3 py-1.5 rounded-lg border border-[#ffb288]/30 shadow-[0_2px_12px_rgba(223,134,86,0.35)] transition-all cursor-pointer"
+            >
+              <span>Skip intro</span>
+              <kbd className="hidden sm:inline-block font-mono text-[9px] font-medium bg-black/30 text-white/90 border border-white/20 rounded px-1.5 py-0.5">
+                Esc
+              </kbd>
+              <X size={14} strokeWidth={2.5} className="text-white" />
+            </button>
+          </div>
         </header>
 
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center py-10 lg:py-6">
